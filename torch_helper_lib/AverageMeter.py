@@ -1,5 +1,3 @@
-#  collection of torch helper functions 
-
 # rolling average for training display
 class AverageMeter(object):
     """Computes and stores the average and current value"""
