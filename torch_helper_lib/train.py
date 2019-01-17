@@ -3,21 +3,30 @@
 import torch
 import numpy as np
 from AverageMeter import AverageMeter
+from test import test
 
 def train(model, device, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwargs):
-    # trains a model over train_loader data for epochs using optimizer and loss_func
-    # returns the accuracy over training
     
-    # if save_hist = 0, returns only train loss and accuracy history
+    # trains a model, using device, over train_loader data for epochs using optimizer and loss_func
+    # returns the history of the loss over training
+    
+    # if save_hist = 0, returns only train loss, and accuracy history if applicable
     # if save_hist = 1, also returns the history of each trainable param of the model for each epoch
     # if save_hist = 2, also logs the history at each update (after each batch of data)
     
-    # used kwargs:
+    ### used kwargs:
     # verbose: boolean, used to print training stats
     verbose = kwargs['verbose'] if 'verbose' in kwargs else False
     # pred_func: function, used to compute number of correct predictions    
     pred_func = kwargs['pred_func'] if 'pred_func' in kwargs else None
+    if pred_func is not None and not callable(pred_func):
+        raise TypeError("pred_func is not a function")
+    # test_loader: pytorch data loader for test loss and acc
+    test_loader = kwargs['test_loader'] if 'test_loader' in kwargs else None
+    if test_loader is not None and not isinstance(test_loader, torch.utils.data.dataloader.DataLoader):
+        raise TypeError("test_loader is not pytorch dataloader")
     
+    ### type checks
     # model: a Pytorch module
     if not isinstance(model, torch.nn.Module):
         raise TypeError("model is not pytorch module")
@@ -39,6 +48,8 @@ def train(model, device, train_loader, loss_func, optimizer, epochs, save_hist=0
     train_loss_hist = []
     rolling_losses = AverageMeter()
     train_acc_hist = []
+    test_lost_hist = []
+    test_acc_hist = []
     # histories to save (the trainable params)
     histories = {}
     for (name,param) in filter(lambda (_,p): p.requires_grad, model.named_parameters() ):
@@ -93,18 +104,29 @@ def train(model, device, train_loader, loss_func, optimizer, epochs, save_hist=0
 
         # print epoch stats
         if verbose:
-            print('Train set: Average loss: {:.4f}'.format(
-                rolling_losses.avg))
-        if pred_func is not None:
-            print('Train set: Accuracy: {}/{} ({:.0f}%)'.format(
-                correct, len(train_loader.dataset),acc))
+            if pred_func is not None:
+                pred_string = ', Accuracy: {}/{} ({:.0f}%)'.format(correct, len(train_loader.dataset),acc)
+            else:
+                pred_string = ''
+            print('Epoch {} Train set - Average loss: {:.4f}'.format(epoch, rolling_losses.avg) + pred_string)
+            
+        # test data if applicable
+        if test_loader is not None:
+            test_res = test(model, device, test_loader, loss_func, verbose=verbose, pred_func=pred_func)
+            test_lost_hist.append(test_res['test_loss'])
+            if pred_func is not None:
+                test_acc_hist.append(test_res['test_accuracy'])
 
-    # return desired tuple
-    ret = (train_loss_hist,)
+    # return desired dictionary
+    ret = {'train_loss_hist':train_loss_hist}
     if pred_func is not None:
-        ret += (train_acc_hist,)
+        ret['train_acc_hist'] = train_acc_hist
+    if test_loader is not None:
+        ret['test_loss_hist'] = test_lost_hist
+        if pred_func is not None:
+            ret['test_acc_hist'] = test_acc_hist
     if save_hist in [1,2]:
-        ret += (histories,)
+        ret['histories'] = histories
         
     return(ret)
                
