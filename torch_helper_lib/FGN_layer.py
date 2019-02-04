@@ -1,8 +1,4 @@
-# define the FGN layer class
-
-###
-# HARDCODED to be off center but not too far
-### 
+# define the FGN layer class to dev
 
 import torch
 import torch.nn as nn
@@ -35,8 +31,9 @@ class FGN_layer(nn.Module):
         self.centers = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad = True)
         # size of FGNs
         self.sigs = nn.Parameter(torch.Tensor(out_features,), requires_grad = True)
-#         # importance of each gaussian
-#         self.pis = nn.Parameter(torch.Tensor(out_features,), requires_grad = True)
+        # importance of each gaussian for likelihoods
+        self.pis = nn.Parameter(torch.Tensor(out_features,), requires_grad = True)
+   
         
         # parameter init call
         self.reset_parameters()
@@ -46,10 +43,12 @@ class FGN_layer(nn.Module):
         s = np.sqrt(self.in_features)
         # regular NN init
         self.weights.data.uniform_(-s, s)
-        # centers init
-        self.centers.data.fill_(0)
-        # size init
-        self.sigs.data.uniform_(self.in_features, self.in_features)
+        # centers init, assuming data normalized to mean 0 var 1
+        self.centers.data.uniform_(-0.01, 0.01)
+        # size init, to be researched further
+        self.sigs.data.uniform_(0.99*self.in_features, 1.01*self.in_features)
+        # PIs init, start at 1/n each
+        self.pis.data.fill_(1.0/self.out_features)
         
     def forward(self, input):
         
@@ -78,12 +77,22 @@ class FGN_layer(nn.Module):
         # optional, flatten res
         # res = F.tanh(res)
 
-        # likelihood computation
-        if self.training:
-            likelihood = None
-        else:
-            likelihood = None
+        # likelihoods computation for each data point
+        likelihoods = input.unsqueeze(1)
+        likelihoods = likelihoods - self.centers
+        likelihoods = likelihoods**2
+        likelihoods = torch.sum(likelihoods, dim=-1)
+        likelihoods = likelihoods/(self.sigs**2)
+        # add ln(det(SIG)) = 2k*log(sig)
+        likelihoods = likelihoods + 2*self.in_features*torch.log(self.sigs)
+        # at this stage, all are ~ -ln N(sample|gaussian) for each gaussian in layer
+        # multiply by the PIs, constrained to sum to 1 and be >0
+        # this means that the underlying PIs are not constrained.
+        pis_normalized = F.softmax(self.pis, dim=-1)
+        likelihoods = likelihoods*pis_normalized
+        # sum them up
+        likelihoods = torch.sum(likelihoods, dim=-1)
+
         
-        
-        return res
+        return res, likelihoods
     
