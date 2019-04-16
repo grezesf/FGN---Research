@@ -75,7 +75,7 @@ def train(model, device, train_loader, loss_func, optimizer, epochs, save_hist=0
             loss = loss_func(model=model, output=output, target=target)
 
             # update rolling average loss
-            rolling_losses.update(loss.item(), data.size(0) )
+            rolling_losses.update(loss.item(), data.size()[0] )
             # update predictions
             if pred_func is not None:
                 correct += pred_func(output=output, target=target)

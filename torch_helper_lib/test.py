@@ -2,6 +2,7 @@
 
 import torch
 import numpy as np
+from AverageMeter import AverageMeter
 
 def test(model, device, test_loader, loss_func, **kwargs):
     
@@ -34,7 +35,8 @@ def test(model, device, test_loader, loss_func, **kwargs):
     # values to return
     test_loss = 0
     correct = 0
-    
+    rolling_losses = AverageMeter()
+
     # start testing (no grad computation)
     with torch.no_grad():
         for data, target in test_loader:
@@ -43,13 +45,15 @@ def test(model, device, test_loader, loss_func, **kwargs):
             # compute outputs
             output = model(data)
             # compute and add loss
-            test_loss += float(loss_func(model=model, output=output, target=target))
+            test_loss = loss_func(model=model, output=output, target=target)
+            # update rolling average loss
+            rolling_losses.update(test_loss.item(), data.size()[0] )
             # update predictions
             if pred_func is not None:
                 correct += pred_func(output=output, target=target)
             
     # average loss 
-    test_loss /= len(test_loader.dataset)
+    test_loss = rolling_losses.avg
     # accuracy
     if pred_func is not None:
         acc = 100. * correct / len(test_loader.dataset)
