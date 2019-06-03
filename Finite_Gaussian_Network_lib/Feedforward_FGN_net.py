@@ -16,12 +16,15 @@ class Feedforward_FGN_net(nn.Module):
         # output imension (number of classes)
         self.out_feats=out_feats
         
-        # the hidden layers    
-        # input dropout
-        self.id = nn.Dropout(p=drop_p) 
+        # the hidden layers
         # add modules
         next_in = self.in_feats
         self.hidden_layers = nn.ModuleList([])
+        
+        # optional input dropout
+        if drop_p > 0:
+            self.hidden_layers.append(nn.Dropout(p=drop_p)) 
+
         for idx, next_out in enumerate(hidden_l_nums):
             # the FGN layer
             self.hidden_layers.append(FGN_layer(next_in, next_out))
@@ -39,14 +42,13 @@ class Feedforward_FGN_net(nn.Module):
     def forward(self, x):
         # squash the data
         x = x.view(-1, self.in_feats)
-        # input dropout
-        x = self.id(x)
         # for each hidden layer
         for layer in self.hidden_layers:
-            # apply finite
+            # apply layer (finite, batchnorm or dropout)
             x = layer(x)
-            # not needed for FGN non-linerarity
-#             x = torch.tanh(x)
+            # if FGN_layer, apply non-linerarity (only needed to replicate behavior)
+#             if isinstance(layer, FGN_layer):
+#                 x = torch.tanh(x)
         # final out layer
         x= self.fl(x)
         # NO softmax

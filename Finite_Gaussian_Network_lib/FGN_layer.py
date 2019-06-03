@@ -30,7 +30,7 @@ class FGN_layer(nn.Module):
         # centers of FGNs
         self.centers = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad = True)
         # size of FGNs
-        self.sigs = nn.Parameter(torch.Tensor(out_features,), requires_grad = True)   
+        self.sigmas = nn.Parameter(torch.Tensor(out_features,), requires_grad = True)   
         
         # parameter init call
         self.reset_parameters()
@@ -46,7 +46,7 @@ class FGN_layer(nn.Module):
 #         s = np.sqrt(self.in_features)
 #         s = self.in_features
         s = np.log2(self.in_features)
-        self.sigs.data.uniform_(s, s)
+        self.sigmas.data.uniform_(s, s)
         
     def forward(self, input):
         
@@ -67,8 +67,8 @@ class FGN_layer(nn.Module):
 
         # apply sigma
         eps = 1e-3 #minimum sigma
-        g = -g/(torch.clamp(self.sigs, min=eps)**2 )
-#         g = -g/self.sigs**2
+        g = -g/(torch.clamp(self.sigmas, min=eps)**2 )
+#         g = -g/self.sigmas**2
         # apply exponential
         g = torch.exp(g)
 

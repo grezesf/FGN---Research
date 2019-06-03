@@ -1,0 +1,8 @@
+# notebooks checkpoints
+.ipynb_checkpoints
+
+# compiled python
+**/*.pyc
+
+# old stuff folder
+old/adversarial_results/

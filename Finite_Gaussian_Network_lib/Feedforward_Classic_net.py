@@ -16,12 +16,15 @@ class Feedforward_Classic_net(nn.Module):
         # output imension (number of classes)
         self.out_feats=out_feats
         
-        # the hidden layers  
-        # input dropout
-        self.id = nn.Dropout(p=drop_p) 
+        # the hidden layers
         # add modules
         next_in = self.in_feats
         self.hidden_layers = nn.ModuleList([])
+        
+        # optional input dropout
+        if drop_p > 0:
+            self.hidden_layers.append(nn.Dropout(p=drop_p)) 
+
         for idx, next_out in enumerate(hidden_l_nums):
             # linear layer
             self.hidden_layers.append(nn.Linear(next_in, next_out))
@@ -39,11 +42,9 @@ class Feedforward_Classic_net(nn.Module):
     def forward(self, x):
         # squash the data
         x = x.view(-1, self.in_feats)
-        # input dropout
-        x = self.id(x)
         # for each hidden layer
         for layer in self.hidden_layers:
-            # apply layer
+            # apply layer (linear, batchnorm or dropout)
             x = layer(x)
             # if linear, apply non-linerarity
             if isinstance(layer, nn.Linear):
