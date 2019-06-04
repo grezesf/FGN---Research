@@ -5,7 +5,7 @@ import numpy as np
 from AverageMeter import AverageMeter
 from test import test
 
-def train(model, device, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwargs):
+def train(model, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwargs):
     
     # trains a model, using device, over train_loader data for epochs using optimizer and loss_func
     # returns the history of the loss over training
@@ -17,6 +17,20 @@ def train(model, device, train_loader, loss_func, optimizer, epochs, save_hist=0
     ### used kwargs:
     # verbose: boolean, used to print training stats
     verbose = kwargs['verbose'] if 'verbose' in kwargs else False
+    # device: a pytorch device, used to tell where to run the model
+    if 'device' in kwargs:
+        # check device type
+        if not isinstance(kwargs['device'], torch.device):
+            raise TypeError("device is not pytorch device")
+        # give warning
+        if verbose:
+            print("Warning: device specified. This might change model and optimizer location (cuda<->cpu)")
+        device = kwargs['device']
+        change_device = True
+    else:
+        # get device from module (will run into probs if on multiple gpus
+        device = next(model.parameters()).device
+        change_device = False
     # pred_func: function, used to compute number of correct predictions    
     pred_func = kwargs['pred_func'] if 'pred_func' in kwargs else None
     if pred_func is not None and not callable(pred_func):
@@ -30,9 +44,6 @@ def train(model, device, train_loader, loss_func, optimizer, epochs, save_hist=0
     # model: a Pytorch module
     if not isinstance(model, torch.nn.Module):
         raise TypeError("model is not pytorch module")
-    # device: a pytorch device 
-    if not isinstance(device, torch.device):
-        raise TypeError("device is not pytorch device")
     # train_loader: a pytorch data loader
     if not isinstance(train_loader, torch.utils.data.dataloader.DataLoader):
         raise TypeError("train_loader is not pytorch dataloader")
@@ -61,8 +72,14 @@ def train(model, device, train_loader, loss_func, optimizer, epochs, save_hist=0
         rolling_losses.reset()
         correct = 0
 
+        # send model to device
+        if change_device:
+            model.to(device)
+            optimizer.load_state_dict(optimizer.state_dict())
+        
         # set model to trainable mode
         model.train()
+        
         # load a batch
         for batch_idx, (data, target) in enumerate(train_loader):
             # load batch data, targets to device
@@ -112,7 +129,10 @@ def train(model, device, train_loader, loss_func, optimizer, epochs, save_hist=0
             
         # test data if applicable
         if test_loader is not None:
-            test_res = test(model, device, test_loader, loss_func, verbose=verbose, pred_func=pred_func)
+            if change_device:
+                test_res = test(model, test_loader, loss_func, verbose=verbose, pred_func=pred_func, device=device)
+            else:
+                test_res = test(model, test_loader, loss_func, verbose=verbose, pred_func=pred_func)
             test_lost_hist.append(test_res['test_loss'])
             if pred_func is not None:
                 test_acc_hist.append(test_res['test_accuracy'])

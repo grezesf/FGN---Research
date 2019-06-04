@@ -4,7 +4,7 @@ import torch
 import numpy as np
 from AverageMeter import AverageMeter
 
-def test(model, device, test_loader, loss_func, **kwargs):
+def test(model, test_loader, loss_func, **kwargs):
     
     # tests a pytorch model, using device, over test_loader data, using loss_func
     # returns the loss, and accuracy if applicable
@@ -12,22 +12,38 @@ def test(model, device, test_loader, loss_func, **kwargs):
     ### used kwargs:
     # verbose: boolean, used to print training stats
     verbose = kwargs['verbose'] if 'verbose' in kwargs else False
+    # device: a pytorch device, used to tell where to run the model
+    if 'device' in kwargs:
+        # check device type
+        if not isinstance(kwargs['device'], torch.device):
+            raise TypeError("device is not pytorch device")
+        # give warning
+        if verbose:
+            print("Warning: device specified. This might change model location (cuda<->cpu)")
+        device = kwargs['device']
+        change_device = True
+    else:
+        # get device from module (will run into probs if on multiple gpus
+        device = next(model.parameters()).device
+        change_device = False
     # pred_func: function, used to compute number of correct predictions    
     pred_func = kwargs['pred_func'] if 'pred_func' in kwargs else None
+    
 
     ### type checks
     # model: a Pytorch module
     if not isinstance(model, torch.nn.Module):
         raise TypeError("model is not pytorch module")
-    # device: a pytorch device 
-    if not isinstance(device, torch.device):
-        raise TypeError("device is not pytorch device")
     # test_loader: a pytorch data loader
     if not isinstance(test_loader, torch.utils.data.dataloader.DataLoader):
         raise TypeError("test_loader is not pytorch dataloader")
     # loss_func: a pytorch loss function (can be any function)
     if not callable(loss_func):
         raise TypeError("loss_func is not a function")
+    
+    # send model to device
+    if change_device:
+        model.to(device)
     
     # set model to eval mode
     model.eval()
