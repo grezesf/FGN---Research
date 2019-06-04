@@ -3,7 +3,7 @@ import torch
 def l2_loss(model):
     # average of linear layer weights^2 in the model, used for regularization
     
-    # init on right device (not tested shared GPU models)
+    # init on right device (not tested on shared GPU models)
     count = 0
     l2 = torch.tensor([0.0], device=next(model.parameters()).device)
     
