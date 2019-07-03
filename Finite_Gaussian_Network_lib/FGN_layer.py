@@ -19,18 +19,29 @@ class FGN_layer(nn.Module):
         >>> l=FGN_layer(20,30)
     
     """
-    def __init__(self, in_features, out_features):
+    def __init__(self, in_features, out_features, noisy_centers=False, train_centers=True, random_eval=False):
         super(FGN_layer, self).__init__()
+        # input dimension
         self.in_features = in_features
+        # output dimension
         self.out_features = out_features
+        # should noise be added to the centers during training?
+        self.noisy_centers = noisy_centers
+        # should the centers be trained (if not, will be on zero origin)
+        self.train_centers = train_centers
+        # noise scale
+        self.scale = max(1e-6, np.sqrt(self.in_features))/1000.0
+        # should the eval be random?
+        self.random_eval = random_eval
+
         
         # learnable parameters
         # regular NN weights (transposed at the start, see order of Tensor(dims))
-        self.weights = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad = True)
+        self.weights = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad=True)
         # centers of FGNs
-        self.centers = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad = True)
+        self.centers = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad=self.train_centers)
         # size of FGNs
-        self.sigmas = nn.Parameter(torch.Tensor(out_features,), requires_grad = True)   
+        self.sigmas = nn.Parameter(torch.Tensor(out_features,), requires_grad=True)
         
         # parameter init call
         self.reset_parameters()
@@ -41,11 +52,15 @@ class FGN_layer(nn.Module):
         # regular NN init
         self.weights.data.uniform_(-s, s)
         # centers init, assuming data normalized to mean 0 var 1
-        self.centers.data.normal_()
+        if self.train_centers:
+            s = np.sqrt(self.in_features)
+            self.centers.data.normal_(std=0.1)
+        else:
+            self.centers.data.uniform_(-0,0)
         # size init, to be researched further
-#         s = np.sqrt(self.in_features)
+        s = np.sqrt(self.in_features)
 #         s = self.in_features
-        s = np.log2(self.in_features)
+#         s = np.log2(self.in_features)
         self.sigmas.data.uniform_(s, s)
         
     def forward(self, input):
@@ -54,12 +69,21 @@ class FGN_layer(nn.Module):
         biases = -torch.sum(torch.mul(self.weights, self.centers), dim=-1)
         l = F.linear(input, self.weights, bias=biases)
         # optional, apply tanh here
-        # l = torch.tanh(l)
+#         l = torch.tanh(l)
 
         # gaussian component
         # unsqueeze the inputs to allow broadcasting
-        # compute distance to centers
-        g = (input.unsqueeze(1)-self.centers)**2
+        # distance to centers
+        g = input.unsqueeze(1)-self.centers
+        # add noise if in training
+        if (self.noisy_centers and self.training):
+            c_noise = torch.Tensor(np.random.normal(scale=self.scale, size=self.centers.size()))
+            # send to proper device
+            c_noise = c_noise.to(next(self.parameters()).device)
+            g = g+c_noise
+        # square for euclidean dist
+        g = g**2
+        # sum along axis
         g = g.sum(dim=2)
 
         # for future, use any norm instead?
@@ -71,10 +95,18 @@ class FGN_layer(nn.Module):
 #         g = -g/self.sigmas**2
         # apply exponential
         g = torch.exp(g)
+        # if in eval mode and random eval applied, replace zeros far from center with random [-max,max]
+        if (self.random_eval and not self.training):
+            max_v = torch.max(torch.abs(g)).item()
+            zero_inds = (g<=1e-6).float().to(next(self.parameters()).device)
+            nzero_inds = (g>1e-6).float().to(next(self.parameters()).device)
+            random_noise = torch.FloatTensor(g.shape).uniform_(-max_v, max_v).to(next(self.parameters()).device)
+            g = torch.mul(g, nzero_inds) + torch.mul(random_noise, zero_inds)
+        
 
         # combine gaussian with linear
         res = l*g
-        # optional, flatten res
+        # optional, flatten res with extra non-linearity
         # res = F.tanh(res)
 
         return res
