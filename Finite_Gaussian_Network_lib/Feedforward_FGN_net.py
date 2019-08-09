@@ -8,17 +8,22 @@ from FGN_layer import FGN_layer
 
 class Feedforward_FGN_net(nn.Module):
     
-    def __init__(self,in_feats, out_feats, hidden_l_nums, drop_p=0.0, noisy_centers=False):
+    def __init__(self,in_feats, out_feats, hidden_l_nums, ordinal=2, drop_p=0.0, noisy_centers=False, random_eval=False):
         super(Feedforward_FGN_net, self).__init__()
         
         # input dimension
         self.in_feats=in_feats
         # output imension (number of classes)
         self.out_feats=out_feats
+        # ordinal used for the norm (distance to centers) computation
+        # (1=diamond, 2=euclidean, 3->float('inf')=approach manhattan)
+        self.ordinal = ordinal
         # dropout prob (same throughout network)
         self.drop_p = drop_p
         # should noise be added to the centers during training?
         self.noisy_centers = noisy_centers
+        # should the eval be random far from the neuron center?
+        self.random_eval = random_eval
         
         # the hidden layers
         # add modules
@@ -35,7 +40,7 @@ class Feedforward_FGN_net(nn.Module):
         next_in = self.in_feats
         for idx, next_out in enumerate(hidden_l_nums):
             # the FGN layer
-            self.hidden_layers.append(FGN_layer(next_in, next_out,noisy_centers=self.noisy_centers, random_eval=True))
+            self.hidden_layers.append(FGN_layer(next_in, next_out, ordinal=self.ordinal, noisy_centers=self.noisy_centers, random_eval=self.random_eval))
             # optional: batchnorm
             self.hidden_layers.append(nn.BatchNorm1d(next_out))
             # optional: dropout layer
@@ -44,8 +49,8 @@ class Feedforward_FGN_net(nn.Module):
             # reset feat for next layer
             next_in = next_out
 
-        # final layer
-        self.fl = FGN_layer(next_in, self.out_feats, random_eval=False)
+        # final layer, always non-random eval, always non-noisy center (?)
+        self.fl = FGN_layer(next_in, self.out_feats, ordinal=self.ordinal, noisy_centers=False, random_eval=False)
         # final layer batchnorm
 #         self.flb = nn.BatchNorm1d(self.out_feats)
         
@@ -69,3 +74,17 @@ class Feedforward_FGN_net(nn.Module):
 #         x = F.log_softmax(x, dim=-1)
         
         return x
+    
+    # utility function: sets random eval for hidden layers
+    def set_random_eval(self, b):
+        
+        # set master eval
+        self.random_eval = b
+        
+        # set for all hidden layers
+        for layer in self.hidden_layers:
+            if isinstance(layer, FGN_layer):
+                layer.random_eval = b
+        
+        # return nothing
+        return None

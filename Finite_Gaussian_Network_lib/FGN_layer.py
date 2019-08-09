@@ -19,19 +19,22 @@ class FGN_layer(nn.Module):
         >>> l=FGN_layer(20,30)
     
     """
-    def __init__(self, in_features, out_features, noisy_centers=False, train_centers=True, random_eval=False):
+    def __init__(self, in_features, out_features, ordinal=2, noisy_centers=False, train_centers=True, random_eval=False):
         super(FGN_layer, self).__init__()
         # input dimension
         self.in_features = in_features
         # output dimension
         self.out_features = out_features
+        # ordinal used for the norm (distance to centers) computation
+        # (1=diamond, 2=euclidean, 3->float('inf')=approach manhattan)
+        self.ordinal = ordinal
         # should noise be added to the centers during training?
         self.noisy_centers = noisy_centers
         # should the centers be trained (if not, will be on zero origin)
         self.train_centers = train_centers
-        # noise scale
-        self.scale = max(1e-6, np.sqrt(self.in_features))/1000.0
-        # should the eval be random?
+        # noise scale for noisy centers
+        self.scale = max(1e-6, np.sqrt(self.in_features)/1000.0)
+        # should the eval be random far from the neuron center?
         self.random_eval = random_eval
 
         
@@ -65,29 +68,39 @@ class FGN_layer(nn.Module):
         
     def forward(self, input):
         
-        # linear part is the same as normal NNs
+        ### linear part is the same as normal NNs
         biases = -torch.sum(torch.mul(self.weights, self.centers), dim=-1)
         l = F.linear(input, self.weights, bias=biases)
         # optional, apply tanh here
 #         l = torch.tanh(l)
 
-        # gaussian component
+#         ### gaussian component
+
         # unsqueeze the inputs to allow broadcasting
         # distance to centers
         g = input.unsqueeze(1)-self.centers
-        # add noise if in training
+        # add noise to centers if required and if in training
         if (self.noisy_centers and self.training):
             c_noise = torch.Tensor(np.random.normal(scale=self.scale, size=self.centers.size()))
             # send to proper device
             c_noise = c_noise.to(next(self.parameters()).device)
             g = g+c_noise
-        # square for euclidean dist
-        g = g**2
+#       # square for euclidean dist
+#         g = g**2
+        # apply abs if ordinal is odd
+        if self.ordinal%2 == 1:
+            g = torch.abs(g)
+        # raise to ordinal power
+        g = g.pow(self.ordinal)
         # sum along axis
         g = g.sum(dim=2)
+        # to make it identical to the torch.norm computation below add .pow(1.0/ord), but not really needed
+#         g = g.pow(1.0/self.ordinal)
 
-        # for future, use any norm instead?
-#         g = torch.norm(input.unsqueeze(1)-self.centers, p=1, dim=2)
+#         # for future, use any norm instead? (adds .pow(1/p) to computation, might be slower, but also might be numpy optimized)
+#         ordinal = self.ordinal 
+#             g = torch.norm(input.unsqueeze(1)-self.centers, p=ordinal, dim=2)
+#         g = g**p # only needed to be identical to above
 
         # apply sigma
         eps = 1e-3 #minimum sigma
@@ -95,16 +108,19 @@ class FGN_layer(nn.Module):
 #         g = -g/self.sigmas**2
         # apply exponential
         g = torch.exp(g)
-        # if in eval mode and random eval applied, replace zeros far from center with random [-max,max]
+        # if in eval mode and random eval applied, replace zeros (ie activity far from center) with random [-max,max]
         if (self.random_eval and not self.training):
+#             print("hit random spot", self.out_features)
             max_v = torch.max(torch.abs(g)).item()
-            zero_inds = (g<=1e-6).float().to(next(self.parameters()).device)
-            nzero_inds = (g>1e-6).float().to(next(self.parameters()).device)
+            # indexes to replace (where the activity is very close to zero)
+            zero_inds = (g<=1e-32).float().to(next(self.parameters()).device)
+            # indexes to not replace
+            nzero_inds = (g>1e-32).float().to(next(self.parameters()).device)
             random_noise = torch.FloatTensor(g.shape).uniform_(-max_v, max_v).to(next(self.parameters()).device)
             g = torch.mul(g, nzero_inds) + torch.mul(random_noise, zero_inds)
         
 
-        # combine gaussian with linear
+        ### combine gaussian with linear
         res = l*g
         # optional, flatten res with extra non-linearity
         # res = F.tanh(res)
