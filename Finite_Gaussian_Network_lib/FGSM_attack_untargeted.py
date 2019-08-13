@@ -153,16 +153,6 @@ def FGSM_attack_untargeted(model, input_data, max_noise, loss_func, step_size, d
         adv_input = torch.clamp(adv_input, data_min, data_max)
         # cur_adv input for grad compute 
         cur_adv_input.data = adv_input
-        
-#         # update whenever we find new best confidence in the 'wrong' class
-#         if (confidence > cur_best_confidence) and (cur_class != orig_class):
-#             cur_best_confidence = confidence
-#             cur_best_adv = adv_input
-#             cur_best_noise = adv_noise
-#             if verbose: print("New best confidence found at step {}:".format(step), cur_best_confidence)
-#         else:
-#             # update step size
-#             step_size = 0.99*step_size #crude
 
     # return dict of results for analysis
     results = {'steps':step, 'confidence':cur_best_confidence}
