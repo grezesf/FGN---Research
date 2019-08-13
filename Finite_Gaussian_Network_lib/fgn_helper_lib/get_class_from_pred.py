@@ -10,12 +10,12 @@ def get_class_from_pred(model, input_data, classes=None, **kwargs):
     # input_data: a tensor accepted by the model 
     if not isinstance(input_data, torch.Tensor):
         raise TypeError("input is not a pytorch tensor")
-    # classes: either an int N for number of classes, and array with class names
+    # classes: array with class names or uses out_feats 
     if classes!=None and not isinstance(classes, list):
          raise TypeError("classes must be a list")
     # convert to list if needed
     if classes == None:
-        # make sure your model has 'out_feats' attribut
+        # make sure your model has 'out_feats' attribute
         classes = range(model.out_feats)
     
     ### kwargs    
@@ -36,7 +36,10 @@ def get_class_from_pred(model, input_data, classes=None, **kwargs):
     # send model to device
     if change_device:
             model.to(device)
-            
+    
+    # set model to eval mode
+    model.eval()
+    
     # send input to device
     input_data = input_data.to(device)
     
