@@ -12,4 +12,6 @@ from def_fgn_cross_ent_loss import def_fgn_cross_ent_loss
 from adjust_sigma_pred_func import adjust_sigma_pred_func
 from FGSM_attack_untargeted import FGSM_attack_untargeted
 from FGSM_attack_targeted import FGSM_attack_targeted
+from full_FGSM_attack import full_FGSM_attack
+
 __version__ = '0.01'

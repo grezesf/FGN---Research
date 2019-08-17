@@ -57,7 +57,7 @@ def FGSM_attack_untargeted(model, input_data, max_noise, loss_func, step_size, d
             model.to(device)
             
     # send input to device
-#     input_data = input_data.to(device)
+    input_data = input_data.to(device)
     
     # set model to eval mode
     model.eval()
@@ -79,7 +79,7 @@ def FGSM_attack_untargeted(model, input_data, max_noise, loss_func, step_size, d
     
     # start of attack
     # (wastes the final step of the loop, since it doesnt check after update)
-    for step in range(steps):
+    for step in range(steps+1)[1:]:
 #         if verbose: print("Step:", step)
         # reset the gradients
         zero_gradients(cur_adv_input)

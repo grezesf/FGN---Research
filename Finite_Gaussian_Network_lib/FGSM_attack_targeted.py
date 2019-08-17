@@ -59,7 +59,7 @@ def FGSM_attack_targeted(model, input_data, target_class, max_noise, loss_func, 
             model.to(device)
             
     # send input to device
-#     input_data = input_data.to(device)
+    input_data = input_data.to(device)
     
     # set model to eval mode
     model.eval()
@@ -82,7 +82,7 @@ def FGSM_attack_targeted(model, input_data, target_class, max_noise, loss_func, 
     cur_adv_input = Variable(input_data, requires_grad=True)
     
     # start of attack
-    for step in range(steps):
+    for step in range(steps+1)[1:]:
 #         if verbose: print("Step:", step)
         # reset the gradients
         zero_gradients(cur_adv_input)
@@ -124,7 +124,7 @@ def FGSM_attack_targeted(model, input_data, target_class, max_noise, loss_func, 
             
         # if not successful yet, update steps, noise, and adv input
 
-        # compute current loss, to be maximized for untargeted attack
+        # compute current loss, to be minimized for targeted attack
         cur_loss = loss_func(cur_out, target_class_tensor)
         # apply backprob
         cur_loss.backward()
@@ -154,4 +154,4 @@ def FGSM_attack_targeted(model, input_data, target_class, max_noise, loss_func, 
     # return dict of results for analysis
     results = {'steps':step, 'confidence':cur_best_confidence}
         
-    return cur_best_adv.cpu(), cur_best_noise.cpu(), results    
+    return(cur_best_adv.cpu(), cur_best_noise.cpu(), results)    
