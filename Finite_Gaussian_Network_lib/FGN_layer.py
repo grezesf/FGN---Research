@@ -84,8 +84,8 @@ class FGN_layer(nn.Module):
         else:
             self.centers.data.uniform_(-0,0)
         # sigmas init, to be researched further
-        s = np.sqrt(self.in_features)
-#         s = self.in_features
+#         s = np.sqrt(self.in_features)
+        s = self.in_features
 #         s = np.log2(self.in_features)
 
         if self.covar_type in ['sphere', 'diag']:
@@ -93,12 +93,14 @@ class FGN_layer(nn.Module):
             self.inv_covar.data.copy_(1.0/self.sigmas)
         elif self.covar_type == 'full':
             # self.covar_type == 'full'
-            # start with a diag cov matrix, actually a spherical since all cov are the same sigmas
-            self.sigmas.data.copy_(s*torch.eye(self.in_features))
+            # start with a diag cov matrix, actually  spherical since all cov are the same sigmas
+            # and add small amount of noise
+            r_sigsmas = torch.abs(torch.randn(self.in_features))
+            self.sigmas.data.copy_(s*r_sigsmas*torch.eye(self.in_features) + 0.00*torch.randn(self.in_features,self.in_features))
             # ensure invertible using only O(N^2) instead of O(~N^3) with A=B*B' method
 #             self.sigmas.data.copy_(0.5*(self.sigmas+self.sigmas.transpose(1,2)))
 #             self.sigmas.data.copy_(self.sigmas + (2.0*torch.eye(self.in_features).expand_as(self.sigmas)))
-            self.inv_covar.data.copy_((1.0/s)*torch.eye(self.in_features))
+            self.inv_covar.data.copy_((1.0/s)*(1.0/r_sigsmas)*torch.eye(self.in_features))
             
         
     def forward(self, input):
@@ -139,15 +141,15 @@ class FGN_layer(nn.Module):
     #         if (g != g).any(): raise TypeError("g 4 is nan \n {}".format(g))
 
             # apply sigma(s) // inv_cov
-#             g = g*(self.inv_covar**2)
-            g = g*torch.abs(self.inv_covar)
+            g = g*(self.inv_covar**2)
+#             g = g*torch.abs(self.inv_covar)
 
          
         # diagonal covariance gaussian
         elif self.covar_type == 'diag':
             # black magic - worked it out from [batch_size, num_neuron, input_dim] -> [batch_size, num_neurons]
-#             g = torch.einsum('zij,zij->zi', g*(self.inv_covar**2), g)
-            g = torch.einsum('zij,zij->zi', g*torch.abs(self.inv_covar), g)
+            g = torch.einsum('zij,zij->zi', g*(self.inv_covar**2), g)
+#             g = torch.einsum('zij,zij->zi', g*torch.abs(self.inv_covar), g)
 
          
         # full diagonal covariance gaussian
