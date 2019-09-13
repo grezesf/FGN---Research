@@ -6,3 +6,16 @@
 
 # old stuff folder
 old/adversarial_results/
+
+# git stuff
+.gitignore.save
+git_status.txt
+
+# anything in FOLDERS in exp
+Experiments/*/
+
+# anything with 'dev'
+**dev**
+
+# anything with 'old'
+**old**
