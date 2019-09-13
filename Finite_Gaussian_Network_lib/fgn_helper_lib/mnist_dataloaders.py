@@ -39,10 +39,17 @@ def mnist_dataloaders(batch_size=32, mnist_path='/home/felix/Research/Adversaria
 
     ## Don't use test set until paper
     mnist_test_loader = torch.utils.data.DataLoader(
-        datasets.MNIST('../../MNIST-dataset', train=False, download=False, 
+        datasets.MNIST(mnist_path, train=False, download=False, 
                        transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize((train_mean,), (train_std,))])
                       ), 
             batch_size=batch_size, shuffle=True)
     
+    # values used for other things
+    # minimum/maximum pixel value post normalization, from train dataset
+    min_pix = -0.4242129623889923095703125
+    max_pix =  2.8214867115020751953125000
+    # mean and std of train set
+    train_mean = -0.0000061691193877777550369501113891601562500000000
+    train_std = 0.999999344348907470703125000000
     
     return(mnist_train_loader, mnist_val_loader, mnist_test_loader)

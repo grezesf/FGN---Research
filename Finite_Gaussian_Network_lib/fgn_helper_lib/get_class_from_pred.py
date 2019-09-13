@@ -11,7 +11,7 @@ def get_class_from_pred(model, input_data, classes=None, **kwargs):
     if not isinstance(input_data, torch.Tensor):
         raise TypeError("input is not a pytorch tensor")
     # classes: array with class names or uses out_feats 
-    if classes!=None and not isinstance(classes, list):
+    if (classes is not None) and not isinstance(classes, list):
          raise TypeError("classes must be a list")
     # convert to list if needed
     if classes == None:
