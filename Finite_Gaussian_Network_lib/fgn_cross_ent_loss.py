@@ -10,6 +10,7 @@ def fgn_cross_ent_loss(model, output, target, lmbda_l2=1e-4, lmbda_sigs=1e-3):
     
     # normal Cent loss
     cent_loss = F.cross_entropy(output, target.long())
+#     cent_loss = F.binary_cross_entropy(output, target.long())
     # normal l2 loss
     l2 = l2_loss(model)
     #sigma loss
