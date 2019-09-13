@@ -14,14 +14,16 @@ parameters:
     # covariance type
     covar_type: ['sphere', 'diag']
     # pressure on loss to make the gaussians smaller
-    lmbda_sigma = [0.1, 0.5, 1.0, 5.0, 20.0]*lmbda_l2
+    lmbda_sigma = [0.01, 0.1, 0.5, 1.0, 2.0, 10.0, 100.0]*lmbda_l2
     
     # fixed parameters
     num_iter = 3
     batch_size = 32 (192 is about the max that fits on GPU with 1024 sized layers)
     num_epochs = 5
-    drop_p = 0
+    drop_p = 0.2
     noisy_centers = False
     train_center = True
     ordinal = 2.0
     lmbda_l2 = (4.0*0.1/len(mnist_train_loader.dataset))
+    optimizer = 'Adam'
+    lr = 0.001
