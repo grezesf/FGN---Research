@@ -119,8 +119,9 @@ def FGSM_attack_targeted(model, input_data, target_class, max_noise, loss_func, 
                 cur_best_adv = adv_input
                 cur_best_noise = adv_noise
             else:
-                # update step size when 
-                step_size = 0.99*step_size #crude
+               # update step size to avoid stepping too far
+                step_size = (1.0-pow(1.0/steps,0.5))*step_size #crude
+                if verbose: print("Updating step size:", step_size)
             
         # if not successful yet, update steps, noise, and adv input
 

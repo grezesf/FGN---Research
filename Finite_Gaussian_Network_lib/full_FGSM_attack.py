@@ -25,10 +25,9 @@ def full_FGSM_attack(model, dataloader,
     if num_attacks==None:
         num_attacks = len(dataloader.dataset)
         
-    #targeted: boolean, wether to do a targeted or untargeted attack
-        
     # attack_params: dictionary with the parameters for FGSM attack
     # make some relatively arbitrary choices as defaults
+    #targeted: boolean, wether to do a targeted or untargeted attack
     try: targeted = attack_params['targeted']
     except: targeted = False
     try: data_classes = attack_params['data_classes']
@@ -43,7 +42,7 @@ def full_FGSM_attack(model, dataloader,
     except: step_size = max_noise/5.0
     try: steps = attack_params['steps']
     except: steps = 5
-    try: confidence = attack_params['confidence']
+    try: confidence_req = attack_params['confidence_req']
     except: confidence_req = 0.5
     
     
@@ -103,9 +102,10 @@ def full_FGSM_attack(model, dataloader,
             confidence_dist.append(attack_results['confidence'])
             # number of steps
             steps_dist.append(attack_results['steps'])
-            # class of the adversarial data
-            adv_class = fgnh.get_class_from_pred(model, adv_data, **kwargs)
-            adv_class_dist.append(adv_class)
+            # class of the adversarial data (when found)
+            if attack_results['confidence']>=1e-10:
+                adv_class = fgnh.get_class_from_pred(model, adv_data, **kwargs)
+                adv_class_dist.append(adv_class)
                         
             # increment attack count
             attack_count+=1

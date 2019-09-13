@@ -112,7 +112,8 @@ def FGSM_attack_untargeted(model, input_data, max_noise, loss_func, step_size, d
                     print("New best found at step {} with confidence {}:".format(step,cur_best_confidence))
             else:
                 # update step size to avoid stepping too far
-                step_size = 0.99*step_size #crude
+                step_size = (1.0-pow(1.0/steps,0.5))*step_size #crude
+                if verbose: print("Updating step size: {}".format(step_size))
             
         # if not successful yet, update steps, noise, and adv input
 
