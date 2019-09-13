@@ -1,0 +1,27 @@
+EXP 00
+
+Training of various feedforward networks, both classical and finite gaussian.
+Used to compare performance over training and validation set.
+
+Data: MNIST split 50K/10K train/val
+
+
+parameters:
+    # width of the network
+    hidden layer sizes to test :[16, 64, 256, 1024]
+    # depth of the network
+    number of hidden layers (all same size, def above):[0, 1, 2, 3]
+    # covariance type
+    covar_type: ['sphere', 'diag']
+    # pressure on loss to make the gaussians smaller
+    lmbda_sigma = [0.1, 0.5, 1.0, 5.0, 20.0]*lmbda_l2
+    
+    # fixed parameters
+    num_iter = 3
+    batch_size = 32 (192 is about the max that fits on GPU with 1024 sized layers)
+    num_epochs = 5
+    drop_p = 0
+    noisy_centers = False
+    train_center = True
+    ordinal = 2.0
+    lmbda_l2 = (4.0*0.1/len(mnist_train_loader.dataset))

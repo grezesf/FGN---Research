@@ -1,9 +1,0 @@
-EXP 00
-
-Training various feed networks, both classical and finite gaussian.
-
-Data: Mnist
-parameters:
-    hidden layer sizes: [16,64,256,1024]
-    number of hidden layers [0,1,2,3]
-    batch_size = 192 (about the max that fits on GPU)
