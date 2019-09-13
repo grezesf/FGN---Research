@@ -28,7 +28,7 @@ def train(model, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwar
         device = kwargs['device']
         change_device = True
     else:
-        # get device from module (will run into probs if on multiple gpus
+        # get device from module (will run into probs if on multiple gpus)
         device = next(model.parameters()).device
         change_device = False
     # pred_func: function, used to compute number of correct predictions    
@@ -67,7 +67,7 @@ def train(model, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwar
         histories[name] = np.expand_dims(param.cpu().detach().numpy(), axis=0)
 
     for epoch in range(0, epochs):
-
+        
         # reset loss and acc
         rolling_losses.reset()
         correct = 0
@@ -82,14 +82,26 @@ def train(model, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwar
         
         # load a batch
         for batch_idx, (data, target) in enumerate(train_loader):
+            
+            for n,p in model.named_parameters():
+                if (p != p).any():
+                    print("epoch {}, batch {}, layer {}".format(epoch,batch_idx,n)) 
+                    raise TypeError("p 0 is nan \n {}".format(p.grad.data))
+            
             # load batch data, targets to device
             data, target = data.to(device), target.to(device)
             # reset optimizer gradients
             optimizer.zero_grad()
             # compute predictions
             output = model(data)
+            if (output != output).any():
+                print("epoch {}, batch {}".format(epoch,batch_ix)) 
+                raise TypeError("output 0 is nan \n {}".format(output))
             # compute loss
             loss = loss_func(model=model, output=output, target=target)
+            if (loss != loss).any():
+                    print("epoch {}, batch {}, layer {}".format(epoch,batch_idx,n)) 
+                    raise TypeError("loss 0 is nan \n {}".format(p.grad.data))
 
             # update rolling average loss
             rolling_losses.update(loss.item(), data.size()[0] )
@@ -99,6 +111,11 @@ def train(model, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwar
 
             # propagate gradients and store them
             loss.backward()
+            for n,p in model.named_parameters():
+                if (p.grad is not None) and (p.grad.data != p.grad.data).any():
+                    print("epoch {}, batch {}, layer {}".format(epoch,batch_idx,n)) 
+                    raise TypeError("p.grad.data 1 is nan \n {}".format(p.grad.data))
+               
             # apply stored gradients to parameters
             optimizer.step()
 
