@@ -14,6 +14,7 @@ import time
 import itertools
 from datetime import datetime
 import GPUtil
+import random
 
 import sys
 sys.path.append('/home/felix/Research/Adversarial Research/FGN---Research/')
@@ -26,15 +27,15 @@ import Finite_Gaussian_Network_lib.fgn_helper_lib as fgnh
 
 # where to save results
 
-save_dir = "/home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00_train_models/"
+save_dir = "/home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00_train_models-run3/"
 
 # fixed experiment parameters
 num_iter = 3
-batch_size = 32
+batch_size = 125
 (mnist_train_loader, mnist_val_loader, mnist_test_loader) = fgnh.mnist_dataloaders(batch_size=batch_size)
 in_feats = 28*28
 out_feats = 10
-num_epochs = 5
+num_epochs = 10
 drop_p = 0.2
 lmbda_l2 = (4.0*0.1/len(mnist_train_loader.dataset))
 device = torch.device('cuda')
@@ -56,9 +57,9 @@ with open(save_dir+"shared_parameters.txt", "w") as text_file:
 
 # parameters to explore
 # width of the network
-hidden_layer_sizes_to_try = [16, 64, 256, 1024]
+hidden_layer_sizes_to_try = [32]
 # depth of the network
-number_of_hidden_layers_to_try = [0, 1, 2, 3]
+number_of_hidden_layers_to_try = [2]
 # covariance type
 covar_types_to_try = ['sphere', 'diag']
 # various loss sigmas to try times lmbda_l2
@@ -81,11 +82,13 @@ exp_params_to_try = []
 
 # define the width and depth of network to try
 hidden_layer_params_to_try = []
-# add the network with no hidden layers
-hidden_layer_params_to_try.append([])
+# # add the network with no hidden layers
+# hidden_layer_params_to_try.append([])
 
-for (num_layers, layer_sizes) in itertools.product(number_of_hidden_layers_to_try[1:], hidden_layer_sizes_to_try):
+for (num_layers, layer_sizes) in itertools.product(number_of_hidden_layers_to_try, hidden_layer_sizes_to_try):
     hidden_layer_params_to_try.append([layer_sizes for _ in range(num_layers)])
+    
+# random.shuffle(hidden_layer_params_to_try)
 
 hidden_layer_params_to_try = list(itertools.product(hidden_layer_params_to_try, network_types_to_try))
 
@@ -93,7 +96,7 @@ hidden_layer_params_to_try = list(itertools.product(hidden_layer_params_to_try, 
 fgn_params_to_try = list(itertools.product(lmbda_sigma_to_try, covar_types_to_try))
 
 # In[8]:
-hidden_layer_params_to_try.reverse()
+# hidden_layer_params_to_try.reverse()
 
 # define all the experiments to run
 for (ite, exp_p) in itertools.product(range(num_iter),hidden_layer_params_to_try):
@@ -150,12 +153,18 @@ def define_model_loss_name_from_kwargs(**kwargs):
     ite = kwargs['ite']
 
     if network_type=='classic':
-        model = fgnl.Feedforward_Classic_net(in_feats=in_feats, out_feats=out_feats, hidden_layer_sizes=hidden_layer_sizes)
+        model = fgnl.Feedforward_Classic_net(in_feats=in_feats, 
+                                             out_feats=out_feats, 
+                                             hidden_layer_sizes=hidden_layer_sizes,
+                                             drop_p=drop_p)
         loss  = fgnh.def_classical_cross_ent_loss(lmbda_l2=lmbda_l2)
         name = "_".join((str(timestamp), str(hidden_layer_sizes), network_type, str(ite)))
 
     elif network_type == 'fgn':
-        model = fgnl.Feedforward_FGN_net(in_feats=in_feats, out_feats=out_feats, hidden_layer_sizes=hidden_layer_sizes, 
+        model = fgnl.Feedforward_FGN_net(in_feats=in_feats, 
+                                         out_feats=out_feats, 
+                                         hidden_layer_sizes=hidden_layer_sizes, 
+                                         drop_p=drop_p, 
                                          covar_type=covar_type)
         loss = fgnl.def_fgn_cross_ent_loss(lmbda_l2=lmbda_l2, lmbda_sigs=lmbda_sigs*lmbda_l2)
         name = "_".join((str(timestamp), str(hidden_layer_sizes), network_type, covar_type, 'lsig{:.4E}'.format(lmbda_sigs), str(ite)))
@@ -177,6 +186,9 @@ for kwargs in exp_params_to_try:
                                                                  lmbda_l2=lmbda_l2, **kwargs)
     print("Model name:", model_name)
     
+    # 16 bits model?
+#     model.half()
+    
     # save parameters
     with open(save_dir+model_name+"_parameters.txt", "w") as text_file:
         for key in kwargs.keys():
@@ -187,8 +199,13 @@ for kwargs in exp_params_to_try:
     model_sent_to_device = False
     while not model_sent_to_device:
         # get free device
-        device_id = GPUtil.getFirstAvailable(order='memory', maxLoad=1.0, maxMemory=0.8, verbose=False)[0]
-
+        try:
+            device_id = GPUtil.getFirstAvailable(order='memory', maxLoad=1.0, maxMemory=0.8, verbose=False)[0]
+        except Exception as e:
+            print(e)
+            print("Couldn't find free device, default to 0")
+            device_id = 0
+            
         # send to least used GPU
         print("Using GPU:", device_id)
         with torch.cuda.device(device_id):
@@ -196,7 +213,8 @@ for kwargs in exp_params_to_try:
             try:
                 model.to(device)
                 model_sent_to_device=True
-            except:
+            except Exception as e:
+                print(e)
                 print("Not enough ram. Wait 30s and continue")
                 time.sleep(30)
     
@@ -212,10 +230,10 @@ for kwargs in exp_params_to_try:
         print("Saving initial (before training) model {} in {}".format(model_name, save_dir))
 
         # save model entirely
-        torch.save(model, save_dir+model_name+"_init_weights_full.pth")
+        torch.save(model, save_dir+model_name+"_init_params_full.pth")
 
         # save model weights
-        torch.save(model.state_dict(), save_dir+model_name+"_init_weights_state_dict.pth")
+        torch.save(model.state_dict(), save_dir+model_name+"_init_params_state_dict.pth")
         
         print("Training")
         train_res = fgnh.train(model=model, train_loader=mnist_train_loader, loss_func=loss, 
@@ -227,10 +245,10 @@ for kwargs in exp_params_to_try:
         print("Saving trained model {} in {}".format(model_name, save_dir))
 
         # save model entirely
-        torch.save(model, save_dir+model_name+"_trained_weights_full.pth")
+        torch.save(model, save_dir+model_name+"_trained_params_full.pth")
 
         # save model weights
-        torch.save(model.state_dict(), save_dir+model_name+"_trained_weights_state_dict.pth")
+        torch.save(model.state_dict(), save_dir+model_name+"_trained_params_state_dict.pth")
         
         # save training histories
         with open(save_dir+model_name+"_training_history.txt", "w") as text_file:
@@ -238,10 +256,14 @@ for kwargs in exp_params_to_try:
                 text_file.write("{} {}\n".format(key, train_res[key]))
 
         
-    except:
+    except Exception as e:
+        print(e)
         print("Training failed. Moving on to next exp" )
         
-    # clean up GPU space?
-    torch.cuda.empty_cache()
-
+#     # clean up GPU space?
+#     print("Clearing GPU)
+#     torch.cuda.empty_cache()
+    
+    print()
+          
 print("Exp-00 Done!")
