@@ -52,22 +52,23 @@ class FGN_layer(nn.Module):
         # centers of FGNs
         self.centers = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad=self.train_centers)
         # size/range of FGNs
+        # inverse covariance will actually be used
         if covar_type == 'sphere':
-            self.sigmas = nn.Parameter(torch.Tensor(out_features,), requires_grad=True)
-#             self.inv_covar = nn.Parameter(torch.Tensor(out_features,), requires_grad=True)
+#             self.sigmas = nn.Parameter(torch.Tensor(out_features,), requires_grad=True)
+            self.inv_covar = nn.Parameter(torch.Tensor(out_features,), requires_grad=True)
         elif covar_type == 'diag':
-            self.sigmas = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad=True)
-#             self.inv_covar = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad=True)
+#             self.sigmas = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad=True)
+            self.inv_covar = nn.Parameter(torch.Tensor(out_features, in_features,), requires_grad=True)
         elif covar_type == 'full':
-            self.sigmas = nn.Parameter(torch.Tensor(out_features, in_features, in_features,), requires_grad=True)
-#             self.inv_covar = nn.Parameter(torch.Tensor(out_features, in_features, in_features,), requires_grad=True)
+#             self.sigmas = nn.Parameter(torch.Tensor(out_features, in_features, in_features,), requires_grad=True)
+            self.inv_covar = nn.Parameter(torch.Tensor(out_features, in_features, in_features,), requires_grad=True)
         else:
             # error
             raise TypeError("covar_type not one of ['sphere', 'diag', 'full']")
         # minimum sigma
         self.eps = 1e-8 
-        # inverse covariance, which will be actually used
-        self.inv_covar = nn.Parameter(0.0*torch.Tensor(self.sigmas), requires_grad=True)
+#         # inverse covariance, which will be actually used
+#         self.inv_covar = nn.Parameter(0.0*torch.Tensor(self.sigmas), requires_grad=True)
 
         # parameter init call
         self.reset_parameters()
@@ -89,18 +90,18 @@ class FGN_layer(nn.Module):
 #         s = np.log2(self.in_features)
 
         if self.covar_type in ['sphere', 'diag']:
-            self.sigmas.data.uniform_(s-0.5, s+0.5)
-            self.inv_covar.data.copy_(1.0/self.sigmas)
+#             self.sigmas.data.uniform_(s-0.5, s+0.5)
+            self.inv_covar.data.uniform_(1.0/(s+0.5), 1.0/(s-0.5))
         elif self.covar_type == 'full':
             # self.covar_type == 'full'
             # start with a diag cov matrix, actually  spherical since all cov are the same sigmas
             # and add small amount of noise
-            r_sigsmas = torch.abs(torch.randn(self.in_features))
-            self.sigmas.data.copy_(s*r_sigsmas*torch.eye(self.in_features) + 0.00*torch.randn(self.in_features,self.in_features))
+            r_sigmas = torch.abs(torch.randn(self.in_features))
+#             self.sigmas.data.copy_(s*r_sigmas*torch.eye(self.in_features) + 0.00*torch.randn(self.in_features,self.in_features))
             # ensure invertible using only O(N^2) instead of O(~N^3) with A=B*B' method
 #             self.sigmas.data.copy_(0.5*(self.sigmas+self.sigmas.transpose(1,2)))
 #             self.sigmas.data.copy_(self.sigmas + (2.0*torch.eye(self.in_features).expand_as(self.sigmas)))
-            self.inv_covar.data.copy_((1.0/s)*(1.0/r_sigsmas)*torch.eye(self.in_features))
+            self.inv_covar.data.copy_((1.0/s)*(1.0/r_sigmas)*torch.eye(self.in_features))
             
         
     def forward(self, input):
@@ -116,6 +117,7 @@ class FGN_layer(nn.Module):
         # unsqueeze the inputs to allow broadcasting
         # distance to centers
         g = input.unsqueeze(1)-self.centers
+#         g = input-self.centers
         # add noise to centers if required and if in training
         if (self.noisy_centers and self.training):
             c_noise = torch.Tensor(np.random.normal(scale=self.scale, size=self.centers.size()))

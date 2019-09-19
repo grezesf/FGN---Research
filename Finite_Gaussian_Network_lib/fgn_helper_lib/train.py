@@ -5,6 +5,7 @@ import numpy as np
 from AverageMeter import AverageMeter
 from test import test
 
+
 def train(model, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwargs):
     
     # trains a model, using device, over train_loader data for epochs using optimizer and loss_func
@@ -66,12 +67,14 @@ def train(model, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwar
     for (name,param) in filter(lambda (_,p): p.requires_grad, model.named_parameters() ):
         histories[name] = np.expand_dims(param.cpu().detach().numpy(), axis=0)
 
+
     for epoch in range(0, epochs):
         
         # reset loss and acc
         rolling_losses.reset()
         correct = 0
-
+        
+         
         # send model to device
         if change_device:
             model.to(device)
@@ -80,23 +83,31 @@ def train(model, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwar
         # set model to trainable mode
         model.train()
         
+        
         # load a batch
         for batch_idx, (data, target) in enumerate(train_loader):
+            
+#             # convert to same type as model (assumes all parameters have the same type)
+#             data.type(model.parameters().next().type())
+#             target.type(model.parameters().next().type())
             
             for n,p in model.named_parameters():
                 if (p != p).any():
                     print("epoch {}, batch {}, layer {}".format(epoch,batch_idx,n)) 
                     raise TypeError("p 0 is nan \n {}".format(p.grad.data))
             
-            # load batch data, targets to device
+            # send batch data, targets to device
             data, target = data.to(device), target.to(device)
+                                  
             # reset optimizer gradients
             optimizer.zero_grad()
+                      
             # compute predictions
             output = model(data)
             if (output != output).any():
                 print("epoch {}, batch {}".format(epoch,batch_ix)) 
                 raise TypeError("output 0 is nan \n {}".format(output))
+                
             # compute loss
             loss = loss_func(model=model, output=output, target=target)
             if (loss != loss).any():

@@ -52,7 +52,7 @@ class Feedforward_FGN_net(nn.Module):
             # reset feat for next layer
             next_in = next_out
 
-        # final layer, always non-random eval, always non-noisy center (?)
+        # final layer, should always be non-random eval
         self.fl = FGN_layer(next_in, self.out_feats, **kwargs)
         # final layer batchnorm
 #         self.flb = nn.BatchNorm1d(self.out_feats)
@@ -97,6 +97,8 @@ class Feedforward_FGN_net(nn.Module):
         for layer in self.hidden_layers:
             if isinstance(layer, FGN_layer):
                 layer.random_eval = b
+        
+        # notice this doesn't change final layer
         
         # return nothing
         return None
