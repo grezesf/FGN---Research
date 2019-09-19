@@ -8,9 +8,9 @@ Data: MNIST split 50K/10K train/val
 
 parameters:
     # width of the network
-    hidden layer sizes to test :[16, 64, 256, 1024]
+    hidden layer sizes to test :[64]
     # depth of the network
-    number of hidden layers (all same size, def above):[0, 1, 2, 3]
+    number of hidden layers (all same size, def above):[2]
     # covariance type
     covar_type: ['sphere', 'diag']
     # pressure on loss to make the gaussians smaller
