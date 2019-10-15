@@ -20,8 +20,8 @@ class FGN_layer(nn.Module):
     
     """
     def __init__(self, in_features, out_features, 
-                 covar_type='diag', ordinal=2.0, noisy_centers=False, non_lin=False, 
-                 train_centers=True, **kwargs):
+                 covar_type='diag', ordinal=2.0, non_lin=False, 
+                 **kwargs):
         super(FGN_layer, self).__init__()
         # input dimension
         self.in_features = in_features
@@ -36,13 +36,7 @@ class FGN_layer(nn.Module):
         # should an extra non-linearity be used and if so which one?
         # can be False or a function on tensors such as torch.tanh()
         self.non_lin = non_lin
-        # should noise be added to the centers during training?
-        self.noisy_centers = noisy_centers
-        # should the centers be trained (if not, will be on zero origin)
-        self.train_centers = train_centers
-        # noise scale for noisy centers
-        self.scale = max(1e-6, np.sqrt(self.in_features)/1000.0)
-        # random_eval is False by default
+        # random_eval is False at creation. Can be manually changed later
         self.random_eval = False
 
         
@@ -50,50 +44,44 @@ class FGN_layer(nn.Module):
         # regular NN weights (transposed at the start, see order of Tensor(dims))
         self.weights = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad=True)
         # centers of FGNs
-        self.centers = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad=self.train_centers)
+        self.centers = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad=True)
         # size/range of FGNs
         # inverse covariance will actually be used
         if covar_type == 'sphere':
 #             self.sigmas = nn.Parameter(torch.Tensor(out_features,), requires_grad=True)
-            self.inv_covar = nn.Parameter(torch.Tensor(out_features,), requires_grad=True)
+            self.inv_covars = nn.Parameter(torch.Tensor(out_features,), requires_grad=True)
         elif covar_type == 'diag':
 #             self.sigmas = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad=True)
-            self.inv_covar = nn.Parameter(torch.Tensor(out_features, in_features,), requires_grad=True)
+            self.inv_covars = nn.Parameter(torch.Tensor(out_features, in_features,), requires_grad=True)
         elif covar_type == 'full':
 #             self.sigmas = nn.Parameter(torch.Tensor(out_features, in_features, in_features,), requires_grad=True)
-            self.inv_covar = nn.Parameter(torch.Tensor(out_features, in_features, in_features,), requires_grad=True)
+            self.inv_covars = nn.Parameter(torch.Tensor(out_features, in_features, in_features,), requires_grad=True)
         else:
             # error
             raise TypeError("covar_type not one of ['sphere', 'diag', 'full']")
         # minimum sigma
         self.eps = 1e-8 
-#         # inverse covariance, which will be actually used
-#         self.inv_covar = nn.Parameter(0.0*torch.Tensor(self.sigmas), requires_grad=True)
 
         # parameter init call
         self.reset_parameters()
     
     # parameter init definition
     def reset_parameters(self):
-        s = np.sqrt(self.in_features)
         # regular NN init
+        s = np.sqrt(self.in_features)
         self.weights.data.uniform_(-s, s)
-        # centers init, assuming data normalized to mean 0 var 1 (not necessarily   true after first layer)
-        if self.train_centers:
-            s = np.sqrt(self.in_features)
-            self.centers.data.normal_(std=0.1)
-        else:
-            self.centers.data.uniform_(-0,0)
+        
+        # centers init, assuming data normalized to mean 0 var 1 (not necessarily true after first layer)
+        self.centers.data.normal_(std=0.1)
+
         # sigmas init, to be researched further
 #         s = np.sqrt(self.in_features)
         s = self.in_features
 #         s = np.log2(self.in_features)
-
         if self.covar_type in ['sphere', 'diag']:
 #             self.sigmas.data.uniform_(s-0.5, s+0.5)
-            self.inv_covar.data.uniform_(1.0/(s+0.5), 1.0/(s-0.5))
+            self.inv_covars.data.uniform_(1.0/(s+0.5), 1.0/(s-0.5))
         elif self.covar_type == 'full':
-            # self.covar_type == 'full'
             # start with a diag cov matrix, actually  spherical since all cov are the same sigmas
             # and add small amount of noise
             r_sigmas = torch.abs(torch.randn(self.in_features))
@@ -101,64 +89,99 @@ class FGN_layer(nn.Module):
             # ensure invertible using only O(N^2) instead of O(~N^3) with A=B*B' method
 #             self.sigmas.data.copy_(0.5*(self.sigmas+self.sigmas.transpose(1,2)))
 #             self.sigmas.data.copy_(self.sigmas + (2.0*torch.eye(self.in_features).expand_as(self.sigmas)))
-            self.inv_covar.data.copy_((1.0/s)*(1.0/r_sigmas)*torch.eye(self.in_features))
+            self.inv_covars.data.copy_((1.0/s)*(1.0/r_sigmas)*torch.eye(self.in_features))
             
         
-    def forward(self, input):
-       
+    def forward(self, inputs):
         ### linear part is the same as normal NNs
+        # compute biases from centers to keep biases gaussians on the zero line
         biases = -torch.sum(torch.mul(self.weights, self.centers), dim=-1)
-        l = F.linear(input, self.weights, bias=biases)
+        l = F.linear(inputs, self.weights, bias=biases)
         # optional, apply tanh here
 #         l = torch.tanh(l)
 
         ### gaussian component
-
-        # unsqueeze the inputs to allow broadcasting
-        # distance to centers
-        g = input.unsqueeze(1)-self.centers
-#         g = input-self.centers
-        # add noise to centers if required and if in training
-        if (self.noisy_centers and self.training):
-            c_noise = torch.Tensor(np.random.normal(scale=self.scale, size=self.centers.size()))
-            # send to proper device
-            c_noise = c_noise.to(next(self.parameters()).device)
-            g = g+c_noise
+        # computation for sphere and diag are the same?
+        if self.covar_type=='sphere':
+            centers_list = [c for c in self.centers]
+            inv_covars_list = [i for i in self.inv_covars]
+            # distance to centers,
+            # with inv_covar applied,
+            # with ordinal applied,
+            # and small value added to prevent problems when ord<1
+            g_list = [torch.sum( torch.pow( torch.abs(inputs-center) + 1e-32*float(self.ordinal<1.0), self.ordinal), dim=1) 
+                      for (center, inv_covar) in zip(centers_list, inv_covars_list)]
+            g = torch.stack(g_list)
+            g = torch.t(g)
+            g = g*(torch.clamp(self.inv_covars, max=1.0/self.eps)**2)
+        
+        elif self.covar_type=='diag':
+            centers_list = [c for c in self.centers]
+            inv_covars_list = [i for i in self.inv_covars]
+            # distance to centers,
+            # with inv_covar applied,
+            # with ordinal applied,
+            # and small value added to prevent problems when ord<1
+            g_list = [torch.sum( torch.pow( torch.abs(inputs-center) * 
+                                          torch.pow(inv_covar**2 + 1e-32*float(1.0/self.ordinal<1.0), 1./self.ordinal) 
+                                          + 1e-32*float(self.ordinal<1.0), 
+                                          self.ordinal),
+                                dim=1) 
+                      for (center, inv_covar) in zip(centers_list, inv_covars_list)]
+            g = torch.stack(g_list)
+            g = torch.t(g)
             
-        # spherical gaussian
-        if self.covar_type == 'sphere':
-           
-            # if the ordinal is smaller than one, prevent zero distance to center or grad will be none
-            if self.ordinal < 1.0:
-                g = torch.abs(g)+1e-32
-            else:
-                g = torch.abs(g)
-                
-            # raise to ordinal power
-            g = g.pow(self.ordinal)
-            # sum along axis
-            g = g.sum(dim=2)
-    #         # to make it identical to the torch.norm computation below add .pow(1.0/ord), but not really needed
-    #         g = g.pow(1.0/self.ordinal)
-    #         if (g != g).any(): raise TypeError("g 4 is nan \n {}".format(g))
+            #old
+#         # unsqueeze the inputs to allow broadcasting
+#         # distance to centers
+#         g = inputs.unsqueeze(1)-self.centers
 
-            # apply sigma(s) // inv_cov
-            g = g*(self.inv_covar**2)
-#             g = g*torch.abs(self.inv_covar)
+#         # add noise to distances if required and if in training
+#         if (self.noisy_centers and self.training):
+#             c_noise = torch.Tensor(np.random.normal(scale=self.scale, size=self.centers.size()))
+#             # send to proper device
+#             c_noise = c_noise.to(next(self.parameters()).device)
+#             g = g+c_noise
+                    
+#         # spherical gaussian
+#         if self.covar_type == 'sphere':
+
+# #             # if the ordinal is smaller than one, prevent zero distance to center or grad will be none
+# #             if self.ordinal < 1.0:
+# #                 g = torch.abs(g)+1e-32
+# #             else:
+# #                 g = torch.abs(g)
+                
+# #             # raise to ordinal power
+# #             g = g.pow(self.ordinal)
+# #             # sum along axis
+# #             g = g.sum(dim=2)
+# #     #         # to make it identical to the torch.norm computation below add .pow(1.0/ord), but not really needed
+# #     #         g = g.pow(1.0/self.ordinal)
+# #     #         if (g != g).any(): raise TypeError("g 4 is nan \n {}".format(g))
+
+#             # apply sigma(s) // inv_cov
+#             g = g*(self.inv_covar**2)
+# #             g = g*torch.abs(self.inv_covar)
 
          
-        # diagonal covariance gaussian
-        elif self.covar_type == 'diag':
-            # black magic - worked it out from [batch_size, num_neuron, input_dim] -> [batch_size, num_neurons]
-            g = torch.einsum('zij,zij->zi', g*(self.inv_covar**2), g)
-#             g = torch.einsum('zij,zij->zi', g*torch.abs(self.inv_covar), g)
-
+#         # diagonal covariance gaussian
+#         elif self.covar_type == 'diag':
+# #             black magic - worked it out from [batch_size, num_neuron, input_dim] -> [batch_size, num_neurons]
+# #             g = torch.einsum('zij,zij->zi', g*(torch.abs(self.inv_covar)**2), g)
+# #             g = torch.einsum('zij,zij->zi', g*torch.abs(self.inv_covar), g)
+#             # apply sigma(s) // inv_cov
+#             g = g*(self.inv_covar**2)
          
         # full diagonal covariance gaussian
         else:
+            # unsqueeze the inputs to allow broadcasting
+            # distance to centers
+            g = inputs.unsqueeze(1)-self.centers
+            
             # black magic - worked it out from [batch_size, num_neuron, input_dim] -> [batch_size, num_neurons]
             # keep in mind inv_covar is actually half of the cov matrix here
-            g = torch.einsum('xzi,zij,zkj,xzk->xz', g, self.inv_covar, self.inv_covar, g)
+            g = torch.einsum('xzi,zij,zkj,xzk->xz', g, self.inv_covars, self.inv_covars, g)
         
         # apply exponential
         g = torch.exp(-g)
