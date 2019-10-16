@@ -13,5 +13,7 @@ from adjust_sigma_pred_func import adjust_sigma_pred_func
 from FGSM_attack_untargeted import FGSM_attack_untargeted
 from FGSM_attack_targeted import FGSM_attack_targeted
 from full_FGSM_attack import full_FGSM_attack
+from plot_centers_histories import plot_centers_histories
+from plot_sigmas_histories import plot_sigmas_histories
 
 __version__ = '0.01'

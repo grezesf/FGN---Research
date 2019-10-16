@@ -11,3 +11,4 @@ from get_class_from_pred import get_class_from_pred
 from mnist_dataloaders import mnist_dataloaders
 from get_dataloader_bounds import get_dataloader_bounds
 from get_dataloader_classes import get_dataloader_classes
+from plot_2D_heatmap import plot_2D_heatmap
