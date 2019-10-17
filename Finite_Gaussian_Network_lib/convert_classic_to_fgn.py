@@ -66,10 +66,10 @@ def convert_state_dict_lin2FGN(lin_state_dict, covar_type, path):
     default_sigma = 25.0*out_features # the number of neurons
     default_inv_covar = 1.0/default_sigma
     if covar_type == 'sphere':
-        fgn_state_dict[path+'.inv_covar'] = torch.Tensor(out_features,).fill_(default_inv_covar)
+        fgn_state_dict[path+'.inv_covars'] = torch.Tensor(out_features,).fill_(default_inv_covar)
     if covar_type == 'diag':
-        fgn_state_dict[path+'.inv_covar'] = torch.Tensor(out_features, in_features).fill_(default_inv_covar)
+        fgn_state_dict[path+'.inv_covars'] = torch.Tensor(out_features, in_features).fill_(default_inv_covar)
     if covar_type == 'full':
-        fgn_state_dict[path+'.inv_covar'] =  default_inv_covar*torch.eye(in_features, in_features,).expand(out_features,in_features, in_features)
+        fgn_state_dict[path+'.inv_covars'] =  default_inv_covar*torch.eye(in_features, in_features,).expand(out_features,in_features, in_features)
         
     return fgn_state_dict
