@@ -2,8 +2,10 @@
 
 import torch
 import torch.nn as nn
+import torch.nn.init as init
 import torch.nn.functional as F
 import numpy as np 
+import math
 
 class FGN_layer(nn.Module):
     r""" Applies a Finite Gaussian Neuron layer to the incoming data
@@ -20,7 +22,7 @@ class FGN_layer(nn.Module):
     
     """
     def __init__(self, in_features, out_features, 
-                 covar_type='diag', ordinal=2.0, non_lin=False, 
+                 covar_type='diag', ordinal=2.0, non_lin=False, free_biases=True,
                  **kwargs):
         super(FGN_layer, self).__init__()
         # input dimension
@@ -33,9 +35,13 @@ class FGN_layer(nn.Module):
         # (1=diamond, 2=euclidean, 3->float('inf')=approach manhattan)
         # right now only for 'sphere' covar type
         self.ordinal = ordinal
-        # should an extra non-linearity be used and if so which one?
-        # can be False or a function on tensors such as torch.tanh()
+        # should an extra non-linearity be used (currently always tanh?
+        # can be False or  True (TODO: any function on tensors)
         self.non_lin = non_lin
+        # should centers of gaussian define the linear layer biases?
+        # ie should the zero-line of the linear part go through the center?
+        self.free_biases = free_biases
+       
         # random_eval is False at creation. Can be manually changed later
         self.random_eval = False
 
@@ -43,6 +49,8 @@ class FGN_layer(nn.Module):
         # learnable parameters and related
         # regular NN weights (transposed at the start, see order of Tensor(dims))
         self.weights = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad=True)
+        self.biases = nn.Parameter(torch.Tensor(out_features,), requires_grad=True)
+        
         # centers of FGNs
         self.centers = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad=True)
         # size/range of FGNs
@@ -68,9 +76,15 @@ class FGN_layer(nn.Module):
     # parameter init definition
     def reset_parameters(self):
         # regular NN init
-        s = np.sqrt(self.in_features)
-        self.weights.data.uniform_(-s, s)
-        
+#         s = np.sqrt(self.in_features)
+#         self.weights.data.uniform_(-s, s)
+        init.kaiming_uniform_(self.weights, a=math.sqrt(5))
+
+#         self.biases.data.uniform_(-s, s)
+        fan_in, _ = init._calculate_fan_in_and_fan_out(self.weights)
+        bound = 1 / math.sqrt(fan_in)
+        init.uniform_(self.biases, -bound, bound)
+
         # centers init, assuming data normalized to mean 0 var 1 (not necessarily true after first layer)
         self.centers.data.normal_(std=0.1)
 
@@ -90,13 +104,19 @@ class FGN_layer(nn.Module):
 #             self.sigmas.data.copy_(0.5*(self.sigmas+self.sigmas.transpose(1,2)))
 #             self.sigmas.data.copy_(self.sigmas + (2.0*torch.eye(self.in_features).expand_as(self.sigmas)))
             self.inv_covars.data.copy_((1.0/s)*(1.0/r_sigmas)*torch.eye(self.in_features))
-            
+    
+    def update_biases_from_centers(self):
+        # computes the biases of linear layers based on centers of gaussians
+        # this function is called by forward if self.free_biases is False
+        # it might be used later elsewhere.
+        self.biases = torch.nn.Parameter(-torch.sum(torch.mul(self.weights, self.centers), dim=-1))
         
     def forward(self, inputs):
         ### linear part is the same as normal NNs
-        # compute biases from centers to keep biases gaussians on the zero line
-        biases = -torch.sum(torch.mul(self.weights, self.centers), dim=-1)
-        l = F.linear(inputs, self.weights, bias=biases)
+        if not self.free_biases:
+            # compute biases from centers to keep gaussians on the zero line
+            self.update_biases_from_centers()
+        l = F.linear(inputs, self.weights, bias=self.biases)
         # optional, apply tanh here
 #         l = torch.tanh(l)
 
@@ -194,11 +214,16 @@ class FGN_layer(nn.Module):
             # indexes to not replace
             nzero_inds = (g>1e-32).float().to(next(self.parameters()).device)
             random_noise = torch.FloatTensor(g.shape).uniform_(-max_v, max_v).to(next(self.parameters()).device)
+            # if the models uses a non-linearity that clamps the outputs to [-1,1]
+            # better to set the activity to be ouside the range
+            # TODO: make a more generic guarantee
+            max_v = 10000
+            random_noise = torch.FloatTensor(g.shape).uniform_(max_v, max_v).to(next(self.parameters()).device)
             g = torch.mul(g, nzero_inds) + torch.mul(random_noise, zero_inds)
         
         # optional, apply tanh to linear
         if self.non_lin != False:
-            l = self.non_lin(l)
+            l = torch.tanh(l)
 
         ### combine gaussian with linear
 #         print(l.shape, g.shape)

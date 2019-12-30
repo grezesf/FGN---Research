@@ -53,7 +53,9 @@ class Feedforward_FGN_net(nn.Module):
             next_in = next_out
 
         # final layer, should always be non-random eval
-        self.fl = FGN_layer(next_in, self.out_feats, **kwargs)
+        # should never have non-lin since passed to softmax
+        kwargs.pop('non_lin', 'None')
+        self.fl = FGN_layer(next_in, self.out_feats, non_lin=False, **kwargs)
         # final layer batchnorm
 #         self.flb = nn.BatchNorm1d(self.out_feats)
         
@@ -101,4 +103,31 @@ class Feedforward_FGN_net(nn.Module):
         # notice this doesn't change final layer
         
         # return nothing
+        return None
+    
+    def set_first_layer_centers(self, data_loader):
+        # based on data (points in space, variance)
+        # sets the centers. sigmas unchanged
+        # works best with random sampler, assumes nothing in between input and first layer
+        # returns nothing
+        
+        # number of neurons in first FGN layer
+        for l in self.hidden_layers:
+            if isinstance(l, FGN_layer):
+                first_layer_size = l.out_features
+                break
+        # size of data loader batches
+        batch_size = data_loader.batch_size
+        count = 0
+        
+        with torch.no_grad():
+            while count<first_layer_size:
+                # load next batch samples
+                batch_samples = next(iter(data_loader))[0]
+                # number of samples from the batch to load
+                num_to_load = min(count+batch_size,first_layer_size)-count
+                l.centers[count:count+num_to_load] = torch.nn.Parameter(batch_samples[:num_to_load],  requires_grad=True)
+
+                count += batch_size
+        
         return None
