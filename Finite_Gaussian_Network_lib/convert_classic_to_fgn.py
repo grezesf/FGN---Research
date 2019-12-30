@@ -59,6 +59,7 @@ def convert_state_dict_lin2FGN(lin_state_dict, covar_type, path):
     
     fgn_state_dict[path+'.'+'weights'] = weights
     fgn_state_dict[path+'.'+'centers'] = new_centers
+    fgn_state_dict[path+'.'+'biases'] = bias
     # the number of neurons
     out_features = weights.shape[0]
     in_features = weights.shape[1]
