@@ -9,6 +9,8 @@ from classical_cross_ent_loss import classical_cross_ent_loss
 from def_classical_cross_ent_loss import def_classical_cross_ent_loss
 from get_class_from_pred import get_class_from_pred
 from mnist_dataloaders import mnist_dataloaders
+from mnist_random_dataloaders import mnist_random_dataloaders
+from mnist_random_shuffled_dataloader import mnist_random_shuffled_dataloader
 from get_dataloader_bounds import get_dataloader_bounds
 from get_dataloader_classes import get_dataloader_classes
 from plot_2D_heatmap import plot_2D_heatmap
