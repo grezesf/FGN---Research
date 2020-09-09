@@ -4,8 +4,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch
 
-
-
 class Feedforward_Classic_net(nn.Module):
     
     def __init__(self,in_feats, out_feats, hidden_layer_sizes, drop_p=0.0, **kwargs):

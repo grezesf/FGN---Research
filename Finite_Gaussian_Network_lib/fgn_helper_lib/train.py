@@ -2,8 +2,8 @@
 
 import torch
 import numpy as np
-from AverageMeter import AverageMeter
-from test import test
+from .AverageMeter import AverageMeter
+from .test import test
 
 
 def train(model, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwargs):
@@ -64,7 +64,7 @@ def train(model, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwar
     test_acc_hist = []
     # histories to save (the trainable params)
     histories = {}
-    for (name,param) in filter(lambda (_,p): p.requires_grad, model.named_parameters() ):
+    for (name,param) in filter(lambda t: t[1].requires_grad, model.named_parameters() ):
         histories[name] = np.expand_dims(param.cpu().detach().numpy(), axis=0)
 
 
@@ -80,7 +80,7 @@ def train(model, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwar
             model.to(device)
             optimizer.load_state_dict(optimizer.state_dict())
         
-        # set model to trainable mode
+        # set model to training mode
         model.train()
         
         
@@ -132,14 +132,14 @@ def train(model, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwar
 
             # update histories        
             if save_hist==2:
-                for (name,param) in filter(lambda (_,p): p.requires_grad, model.named_parameters() ):
+                for (name,param) in filter(lambda t: t[1].requires_grad, model.named_parameters() ):
                     histories[name] = np.append(histories[name], np.expand_dims(param.cpu().detach().numpy(), axis=0), axis=0)
 
             #end of batch
 
         # update histories        
         if save_hist==1:
-            for (name,param) in filter(lambda (_,p): p.requires_grad, model.named_parameters() ):
+            for (name,param) in filter(lambda t: t[1].requires_grad, model.named_parameters() ):
                 histories[name] = np.append(histories[name], np.expand_dims(param.cpu().detach().numpy(), axis=0), axis=0)
         
         train_loss_hist.append(rolling_losses.avg)
@@ -175,7 +175,10 @@ def train(model, train_loader, loss_func, optimizer, epochs, save_hist=0, **kwar
             ret['test_acc_hist'] = test_acc_hist
     if save_hist in [1,2]:
         ret['histories'] = histories
-        
+    
+    # always reset the model to eval mode
+    model.eval()
+    
     return(ret)
                
                

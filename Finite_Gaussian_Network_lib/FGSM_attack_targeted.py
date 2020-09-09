@@ -1,7 +1,8 @@
 import torch
 from torch.autograd import Variable
 from torch.autograd.gradcheck import zero_gradients
-import fgn_helper_lib as fgnh
+
+from .fgn_helper_lib import get_class_from_pred
 
 def FGSM_attack_targeted(model, input_data, target_class, max_noise, loss_func, step_size, data_bounds,
                          steps=1, confidence_req=0.5,
@@ -66,7 +67,7 @@ def FGSM_attack_targeted(model, input_data, target_class, max_noise, loss_func, 
     
     # get prediction for input (int)
     # this might even be the wrong class, but the attack aims to change this prediction
-    orig_class = fgnh.get_class_from_pred(model, input_data, **kwargs)    
+    orig_class = get_class_from_pred(model, input_data, **kwargs)    
        
     ### start of attack code
     cur_best_confidence = -1.0
@@ -82,8 +83,8 @@ def FGSM_attack_targeted(model, input_data, target_class, max_noise, loss_func, 
     cur_adv_input = Variable(input_data, requires_grad=True)
     
     # start of attack
-    for step in range(steps+1)[1:]:
-#         if verbose: print("Step:", step)
+    for step in range(steps+1):
+        if verbose: print("Step:", step)
         # reset the gradients
         zero_gradients(cur_adv_input)
 

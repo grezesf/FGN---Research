@@ -8,7 +8,9 @@ def l2_loss(model):
     l2 = torch.tensor([0.0], device=next(model.parameters()).device)
     
     for p in model.named_parameters():
-        if ('weight' in p[0]) or ('bias' in p[0]):
+        # i don't think the bias term should be minimized
+#         if ('weight' in p[0]) or ('bias' in p[0]):
+        if ('weight' in p[0]):
             l2 += torch.sum(p[1]**2)
             count += len(p[1])
         

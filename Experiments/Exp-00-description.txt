@@ -1,0 +1,100 @@
+EXP 00
+
+Training of various feedforward networks, both classical and finite gaussian.
+Used to compare performance over training and validation set.
+
+Data: MNIST split 50K/10K train/val
+
+Structure:
+    train 3 classic nets per config 
+    convert the 3 classic nets to FGN and train for 1 epoch (various ordinals and lambda_sigs params)
+    train 3 FGNs per FGN config (multiple FGNs config for each classic config)
+    save for evaluation
+    
+Results:
+    /Exp-00
+    |
+    |---shared_config_fixed_parameters.txt
+    |---shared_config_fixed_parameters_dic.pckl
+    |---shared_config_variable_parameters.txt
+    |---shared_config_experiments_list.pckl
+    |
+    |---#timestamp#
+        |
+        |---exp-00_log.txt
+        |---\#shared_config_01_description#
+            |
+            |---\classic_1
+                |
+                |---train_log.txt
+                |---config.txt
+                |---model_full.pth
+                |---model_state_dict.pth
+                |---init_model_full.pth
+                |---init_model_state_dict.pth
+                |---train_histories.pckl
+                |---\converted_to_FGN
+                    |
+                    |---\converted_1
+                    |
+                    |---converted_config.txt
+                    ...
+                    |---\converted_2
+                    ...
+            |
+            |---\classic_2
+                ...
+            |---\classic_3
+                ...
+            |
+            |---\FGNs
+                |
+                |---\#fgn_config_01_description#
+                    |
+                    |---\fgn_1
+                        ...
+                    |---\fgn_2
+                        ...
+                    |---\fgn_3
+                        ...
+                |
+                |---\#fgn_config_02_descp#
+                    ...
+        |
+        |---\#shared_config_02_descp#
+            ...
+                
+
+parameters:
+    # width of the network
+    hidden layer sizes to test :[16,64,256,1024]
+    # depth of the network
+    number of hidden layers (all same size, def above):[0,1,2,3]
+    # dropout propbability
+    drop_p = 0.2
+    
+    ### for FGNs
+    # covariance type
+    covar_type= ['sphere', 'diag']
+    # ordinal of gaussian
+    ordinal = [0.5, 1.0, 2.0, 5.0]
+    # pressure on loss to make the gaussians smaller
+    lmbda_sigma = [0.01, 0.1, 0.5, 1.0, 2.0, 10.0, 100.0]*lmbda_l2
+
+    
+    # fixed parameters
+    num_iter = 5
+    batch_size = 168 (192 is about the max that fits on GPU with 1024 sized layers)
+    num_epochs = 5
+    noisy_centers = False
+    train_center = True
+    lmbda_l2 = (4.0*0.1/len(mnist_train_loader.dataset))
+    optimizer = 'Adam'
+    lr = 0.001
+    
+Run Process:
+    1- create and save list of parameters for models
+        Exp-00-Shared_Config_def.ipynb
+        
+    2- 
+    

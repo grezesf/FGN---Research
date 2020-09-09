@@ -1,7 +1,9 @@
+import numpy as np
 import torch
 from torch.autograd import Variable
 from torch.autograd.gradcheck import zero_gradients
-import fgn_helper_lib as fgnh
+
+from .fgn_helper_lib import get_class_from_pred
 
 def FGSM_attack_untargeted(model, input_data, max_noise, loss_func, step_size, data_bounds,
                            steps=1, confidence_req=0.5,
@@ -17,10 +19,10 @@ def FGSM_attack_untargeted(model, input_data, max_noise, loss_func, step_size, d
     
     # model: a pytorch model that outputs a raw vector for a N-class prediction
     if not isinstance(model, torch.nn.Module):
-        raise TypeError("model is not pytorch module")
+        raise TypeError('model is not pytorch module')
     # input_data: a tensor accepted by the model 
     if not isinstance(input_data, torch.Tensor):
-        raise TypeError("input is not a pytorch tensor")
+        raise TypeError('input is not a pytorch tensor')
     
     # max_noise: positive float, maximum change allowed in each input dimension
     
@@ -35,16 +37,17 @@ def FGSM_attack_untargeted(model, input_data, max_noise, loss_func, step_size, d
     
     # confidence_req: require that the confidence of the adversarial pred be higher than this
     
-    ### kwargs    
+    ### kwargs
     # verbose: boolean, used to print training stats
     verbose = kwargs['verbose'] if 'verbose' in kwargs else False
+    
     # device: a pytorch device, used to tell where to run the model
     if 'device' in kwargs:
         # check device type
         if not isinstance(kwargs['device'], torch.device):
-            raise TypeError("device is not pytorch device")
+            raise TypeError('device is not pytorch device')
         # give warning
-        if verbose: print("Warning: device specified. This might change model and input location (cuda<->cpu)")
+        if verbose: print('Warning: device specified. This might change model and input location (cuda<->cpu)')
         device = kwargs['device']
         change_device = True
     else:
@@ -53,8 +56,7 @@ def FGSM_attack_untargeted(model, input_data, max_noise, loss_func, step_size, d
         change_device = False
     
     # send model to device
-    if change_device:
-            model.to(device)
+    if change_device: model.to(device)
             
     # send input to device
     input_data = input_data.to(device)
@@ -64,8 +66,9 @@ def FGSM_attack_untargeted(model, input_data, max_noise, loss_func, step_size, d
     
     # get prediction for input (int)
     # this might even be the wrong class, but the attack aims to change this prediction
-    orig_class = fgnh.get_class_from_pred(model, input_data, **kwargs)
-   
+    orig_class = get_class_from_pred(model, input_data, **kwargs)
+    if verbose: print('Original class:', orig_class)
+  
     ### start of attack code
     cur_best_confidence = -1.0
     print_once = True
@@ -79,23 +82,32 @@ def FGSM_attack_untargeted(model, input_data, max_noise, loss_func, step_size, d
     
     # start of attack
     # (wastes the final step of the loop, since it doesnt check after update)
-    for step in range(steps+1)[1:]:
-#         if verbose: print("Step:", step)
+    for step in range(steps+1):
+        if verbose: print('Step:', step)
         # reset the gradients
         zero_gradients(cur_adv_input)
 
         # compute model output for current adv_input
         cur_out = model(cur_adv_input)
-        # set current prediction
-        cur_pred = cur_out.data.max(1)[1]
+        # get current prediction
+        max_conf, max_ind = cur_out.data.max(1)
+        min_conf = cur_out.data.min(1)[0]
+        # check that there is an actual prediction and not all identical
+        if abs(max_conf-min_conf)<1e-30:
+            # if they are all identical, pick a random class != original
+            cur_pred = torch.tensor([orig_class]).to(device)
+            if verbose: print('No predictions, move away from original')
+        else:
+            cur_pred = max_ind
+            
+        if verbose: print('Current prediction:', cur_pred)
         cur_class = cur_pred.cpu().numpy()[0]
-#         if verbose: print("Current prediction:", cur_pred)
 
         confidence = torch.softmax(cur_out,1).max(1)[0].detach().cpu().numpy()[0]
         
         # check if already successful
         if (cur_class != orig_class) and (confidence >= confidence_req) :
-            if verbose: print("Early stopping at step {} with confidence {}:".format(step, confidence))
+            if verbose: print('Early stopping at step {} with confidence {}:'.format(step, confidence))
             cur_best_confidence = confidence
             cur_best_adv = adv_input
             cur_best_noise = adv_noise
@@ -109,11 +121,11 @@ def FGSM_attack_untargeted(model, input_data, max_noise, loss_func, step_size, d
                 cur_best_adv = adv_input
                 cur_best_noise = adv_noise
                 if verbose and not print_once:
-                    print("New best found at step {} with confidence {}:".format(step,cur_best_confidence))
+                    print('New best found at step {} with confidence {}:'.format(step,cur_best_confidence))
             else:
                 # update step size to avoid stepping too far
                 step_size = (1.0-pow(1.0/steps,0.5))*step_size #crude
-                if verbose: print("Updating step size: {}".format(step_size))
+                if verbose: print('Updating step size: {}'.format(step_size))
             
         # if not successful yet, update steps, noise, and adv input
 
@@ -126,21 +138,21 @@ def FGSM_attack_untargeted(model, input_data, max_noise, loss_func, step_size, d
         
         # if grad is zero, add tiny noise
         if (torch.abs(normed_grad).max()<=1e-32):
-#             if verbose: print("Grad zero found. Taking Random Step")
+            if verbose: print('Grad zero found. Taking Random Step')
             normed_grad =  step_size * torch.sign(2.0*torch.rand_like(normed_grad)-1.0)
 
-        #if we have already have the wrong class, but not enough confidence, move with the gradient
+        # if we have already have the wrong class, but not enough confidence, move with the gradient
         if (cur_class != orig_class):
             if verbose and print_once: 
-                print("Found wrong class {} at step {} with confidence {}.".format(cur_class ,step, confidence))
-                print("Attempting to increase confidence")
+                print('Found wrong class {} at step {} with confidence {}.'.format(cur_class ,step, confidence))
+                print('Attempting to increase confidence')
                 print_once = False
             
             # step WITH the gradient
             step_adv = cur_adv_input.data - normed_grad
             
         else:
-            # still original class , take one step AWAY (opposite the gradient, away from current class)
+            # still original class (or no prediction), take one step AWAY (opposite the gradient, away from current class)
             step_adv = cur_adv_input.data + normed_grad
 
         # compute adv noise
@@ -155,6 +167,9 @@ def FGSM_attack_untargeted(model, input_data, max_noise, loss_func, step_size, d
         # cur_adv input for grad compute 
         cur_adv_input.data = adv_input
 
+        # separate steps
+        if verbose: print()
+        
     # return dict of results for analysis
     results = {'steps':step, 'confidence':cur_best_confidence}
         

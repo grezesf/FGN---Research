@@ -1,5 +1,6 @@
-from l2_loss import l2_loss
 import torch.nn.functional as F
+
+from .l2_loss import l2_loss
 
 # cross-entropy loss function to be used by Feedforward_Classic_net
 # includes l2_loss

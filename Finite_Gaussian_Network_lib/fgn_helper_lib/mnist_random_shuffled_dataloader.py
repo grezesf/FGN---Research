@@ -1,7 +1,8 @@
 import numpy as np
 import torch
-from mnist_dataloaders import mnist_dataloaders
 from torchvision import datasets, transforms
+
+from .mnist_dataloaders import mnist_dataloaders
 
 
 def mnist_random_shuffled_dataloader(num_samples=1000, batch_size=1):

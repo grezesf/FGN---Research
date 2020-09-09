@@ -1,7 +1,8 @@
 
-from fgn_helper_lib.l2_loss import l2_loss
-from sigmas_loss import sigmas_loss
 import torch.nn.functional as F
+
+from .fgn_helper_lib.l2_loss import l2_loss
+from .sigmas_loss import sigmas_loss
 
 # cross-entropy loss function to be used by Feedforward_FGN_net
 # includes l2_loss and sigmas reduction loss

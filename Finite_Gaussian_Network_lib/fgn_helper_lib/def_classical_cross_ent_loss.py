@@ -1,4 +1,4 @@
-from classical_cross_ent_loss import classical_cross_ent_loss
+from .classical_cross_ent_loss import classical_cross_ent_loss
 
 # defines a loss func based on a given lambda for the l2 loss
 

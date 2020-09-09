@@ -1,6 +1,7 @@
-import fgn_helper_lib as fgnh
-from FGN_layer import FGN_layer
 import torch
+
+from .fgn_helper_lib import test
+from .FGN_layer import FGN_layer
 
 def adjust_sigma_pred_func(fgn_model, dataloader, pred_func, verbose):
     
@@ -9,7 +10,7 @@ def adjust_sigma_pred_func(fgn_model, dataloader, pred_func, verbose):
     ###
     
     # best pred acc yet
-    fgn_test_res = fgnh.test(fgn_model, dataloader, 
+    fgn_test_res = test(fgn_model, dataloader, 
                              (lambda model, output, target:torch.tensor(0)), verbose=verbose, 
                              pred_func=pred_func)
     best_pred = fgn_test_res['test_accuracy']
@@ -23,7 +24,7 @@ def adjust_sigma_pred_func(fgn_model, dataloader, pred_func, verbose):
     # max number of values to test
     max_iter = 25
     
-    # first double sigmas until performance decreases
+    # first double sigmas while performance increases
     for ite in range(max_iter):
         # new val to test
         cur_sig_mult = 2.0*best_sig_mult
@@ -36,7 +37,7 @@ def adjust_sigma_pred_func(fgn_model, dataloader, pred_func, verbose):
                 p.sigmas = torch.nn.Parameter(p.sigmas*cur_sig_mult)
     
         # test
-        fgn_test_res = fgnh.test(fgn_model, dataloader, 
+        fgn_test_res = test(fgn_model, dataloader, 
                              (lambda model, output, target:torch.tensor(0)), verbose=verbose, 
                              pred_func=pred_func)
         cur_pred = fgn_test_res['test_accuracy']
@@ -56,6 +57,7 @@ def adjust_sigma_pred_func(fgn_model, dataloader, pred_func, verbose):
         else:
             # new upper bound
             upper_bound = cur_sig_mult
+            if verbose: print("new upper bound:", upper_bound)
             # and exit loop
             break
             
@@ -73,7 +75,7 @@ def adjust_sigma_pred_func(fgn_model, dataloader, pred_func, verbose):
                 p.sigmas = torch.nn.Parameter(p.sigmas*cur_sig_mult)
     
         # test
-        fgn_test_res = fgnh.test(fgn_model, dataloader, 
+        fgn_test_res = test(fgn_model, dataloader, 
                              (lambda model, output, target:torch.tensor(0)), verbose=verbose, 
                              pred_func=pred_func)
         cur_pred = fgn_test_res['test_accuracy']
@@ -93,6 +95,7 @@ def adjust_sigma_pred_func(fgn_model, dataloader, pred_func, verbose):
         else:
             # increase lower bound
             lower_bound = cur_sig_mult
+            if verbose: print("new lower bound:", lower_bound)
             # and exit loop
             break
     
@@ -110,7 +113,7 @@ def adjust_sigma_pred_func(fgn_model, dataloader, pred_func, verbose):
                 p.sigmas = torch.nn.Parameter(p.sigmas*cur_sig_mult)
     
         # test
-        fgn_test_res = fgnh.test(fgn_model, dataloader, 
+        fgn_test_res = test(fgn_model, dataloader, 
                              (lambda model, output, target:torch.tensor(0)), verbose=verbose, 
                              pred_func=pred_func)
         cur_pred = fgn_test_res['test_accuracy']

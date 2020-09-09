@@ -2,9 +2,13 @@
 
 import torch
 import numpy as np
-from AverageMeter import AverageMeter
+import torch.nn.functional as F
 
-def test(model, test_loader, loss_func, **kwargs):
+from .AverageMeter import AverageMeter
+from .classical_cross_ent_loss import classical_cross_ent_loss
+
+
+def test(model, test_loader, loss_func=classical_cross_ent_loss, **kwargs):
     
     # tests a pytorch model, using device, over test_loader data, using loss_func
     # returns the loss, and accuracy if applicable

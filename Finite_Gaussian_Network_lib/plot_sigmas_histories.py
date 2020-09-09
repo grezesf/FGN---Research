@@ -14,8 +14,11 @@ def plot_sigmas_histories(histories, covar_type=None):
         elif len(s)==3:
             covar_type='diag'
         elif len(s)==4:
-            covar_type='full'
-    
+            # this could be full or cholesky, ask for clarification
+            # covar_type='full'
+             raise Exception('Is covar_type \'full\' or \'chol\'? ')
+
+            
     # check that inv covar has gone up, sigmas down, and trace down if covar_type=='full'
     for k in histories.keys():
         if 'inv_covar' in k:
@@ -52,18 +55,45 @@ def plot_sigmas_histories(histories, covar_type=None):
                                           
 
             elif covar_type == 'full':
-                # for each neuron
+                # for each neuron, plot trace of inv_covar
                 for i in range(len(histories[k][0])):
-                    # plot trace
-                    trace = [np.einsum('ik,ik->', p, p) for p in histories[k][:,i]]
+                    # plot trace of inv_covar
+                    trace = [np.einsum('ii->', p) for p in histories[k][:,i]]
                     plt.plot(trace, marker='.', linestyle=' ')
-                    plt.title('Trace: '+k)
+                    plt.title('Trace of Inverse Covariance Matrix: '+k)
                 plt.grid()
                 plt.show()
+                
+                # for each neuron, plot trace of sigma
+                for i in range(len(histories[k][0])):
+                    # plot trace of Sigmas by computing inverse stored inv_covar
+                    trace = [np.einsum('ii->', np.linalg.inv(p)) for p in histories[k][:,i]]
+                    plt.plot(trace, marker='.', linestyle=' ')
+                    plt.title('Trace of Covariance Matrix: '+k)
+                plt.grid()
+                plt.show()
+                
+            elif covar_type == 'chol':
+                # for each neuron, plot trace of inv_covar
+                for i in range(len(histories[k][0])):
+                    # plot trace of inv_covar
+                    trace = [np.einsum('ii->', p) for p in histories[k][:,i]]
+                    plt.plot(trace, marker='.', linestyle=' ')
+                    plt.title('Trace of Inverse Covariance Half Matrix: '+k)
+                plt.grid()
+                plt.show()
+                
+                # for each neuron, plot trace of sigma
+                for i in range(len(histories[k][0])):
+                    # plot trace of Sigmas by computing inverse stored inv_covar
+                    trace = [np.einsum('ii->', np.linalg.inv(np.matmul(p, np.transpose(p)))) for p in histories[k][:,i]]
+                    plt.plot(trace, marker='.', linestyle=' ')
+                    plt.title('Trace of Covariance Matrix: '+k)
+                plt.grid()
+                plt.show()
+    
 
-
-            else:
-                # covar_type == 'sphere'
+            elif covar_type == 'sphere':
                 plt.plot(histories[k], marker='.', linestyle=' ',)
                 plt.title('Inverse Covariance: '+k)
                 plt.grid()
@@ -74,3 +104,7 @@ def plot_sigmas_histories(histories, covar_type=None):
 
                 plt.grid()
                 plt.show()
+            
+            else:
+                # should not happen
+                 raise Exception('Something went wrong with covar_type')

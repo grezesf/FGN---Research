@@ -1,4 +1,4 @@
-from fgn_cross_ent_loss import fgn_cross_ent_loss
+from .fgn_cross_ent_loss import fgn_cross_ent_loss
 
 # defines a loss func based on a given lambda for the l2 loss for Feedforward_FGN_net
 

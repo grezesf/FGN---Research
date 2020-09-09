@@ -1,0 +1,1300 @@
+Converting /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/trained_classic_model_full.pth
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls8e-08
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9005, Accuracy: 35104/50000 (70%)
+Test set - Average loss: 0.3970, Accuracy: 8938/10000 (89%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls8e-08 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls8e-08
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls8e-08
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.8970, Accuracy: 35319/50000 (71%)
+Test set - Average loss: 0.3809, Accuracy: 8999/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls8e-08 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls8e-08
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls8e-08
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9017, Accuracy: 35215/50000 (70%)
+Test set - Average loss: 0.3801, Accuracy: 8961/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls8e-08 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls8e-08
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls8e-08
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.0545, Accuracy: 32857/50000 (66%)
+Test set - Average loss: 0.4630, Accuracy: 8766/10000 (88%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls8e-08 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls8e-08
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls8e-08
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9072, Accuracy: 34985/50000 (70%)
+Test set - Average loss: 0.3912, Accuracy: 9007/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls8e-08 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls8e-08
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls8e-08
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.8881, Accuracy: 35393/50000 (71%)
+Test set - Average loss: 0.3851, Accuracy: 9002/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls8e-08 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls8e-08
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls8e-08
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.8939, Accuracy: 35419/50000 (71%)
+Test set - Average loss: 0.3680, Accuracy: 9019/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls8e-08 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls8e-08
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls8e-08
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 2.0729, Accuracy: 30754/50000 (62%)
+Test set - Average loss: 0.5462, Accuracy: 8386/10000 (84%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls8e-08 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls8e-08
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls8e-07
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.8999, Accuracy: 35205/50000 (70%)
+Test set - Average loss: 0.3929, Accuracy: 8984/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls8e-07 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls8e-07
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls8e-07
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9004, Accuracy: 35099/50000 (70%)
+Test set - Average loss: 0.3904, Accuracy: 8934/10000 (89%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls8e-07 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls8e-07
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls8e-07
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9156, Accuracy: 34942/50000 (70%)
+Test set - Average loss: 0.3872, Accuracy: 8986/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls8e-07 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls8e-07
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls8e-07
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.4268, Accuracy: 32825/50000 (66%)
+Test set - Average loss: 0.5107, Accuracy: 8636/10000 (86%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls8e-07 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls8e-07
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls8e-07
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.8994, Accuracy: 35317/50000 (71%)
+Test set - Average loss: 0.3911, Accuracy: 9006/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls8e-07 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls8e-07
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls8e-07
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9009, Accuracy: 35328/50000 (71%)
+Test set - Average loss: 0.3802, Accuracy: 9006/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls8e-07 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls8e-07
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls8e-07
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.8964, Accuracy: 35299/50000 (71%)
+Test set - Average loss: 0.3781, Accuracy: 8992/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls8e-07 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls8e-07
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls8e-07
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.4064, Accuracy: 30892/50000 (62%)
+Test set - Average loss: 0.5786, Accuracy: 8391/10000 (84%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls8e-07 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls8e-07
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls4e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9171, Accuracy: 35254/50000 (71%)
+Test set - Average loss: 0.3975, Accuracy: 8995/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls4e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls4e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls4e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9117, Accuracy: 35218/50000 (70%)
+Test set - Average loss: 0.3956, Accuracy: 9004/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls4e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls4e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls4e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9190, Accuracy: 35047/50000 (70%)
+Test set - Average loss: 0.3985, Accuracy: 8950/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls4e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls4e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls4e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.2508, Accuracy: 31161/50000 (62%)
+Test set - Average loss: 0.6348, Accuracy: 8590/10000 (86%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls4e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls4e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls4e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9187, Accuracy: 35206/50000 (70%)
+Test set - Average loss: 0.3906, Accuracy: 9006/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls4e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls4e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls4e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9165, Accuracy: 35196/50000 (70%)
+Test set - Average loss: 0.3926, Accuracy: 8985/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls4e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls4e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls4e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9137, Accuracy: 35266/50000 (71%)
+Test set - Average loss: 0.3839, Accuracy: 8994/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls4e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls4e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls4e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.3153, Accuracy: 30468/50000 (61%)
+Test set - Average loss: 0.5960, Accuracy: 8344/10000 (83%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls4e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls4e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls8e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9354, Accuracy: 35123/50000 (70%)
+Test set - Average loss: 0.4035, Accuracy: 8998/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls8e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls8e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls8e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9404, Accuracy: 35119/50000 (70%)
+Test set - Average loss: 0.4007, Accuracy: 8990/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls8e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls8e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls8e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9280, Accuracy: 35282/50000 (71%)
+Test set - Average loss: 0.3993, Accuracy: 8982/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls8e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls8e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls8e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.3329, Accuracy: 29994/50000 (60%)
+Test set - Average loss: 0.6476, Accuracy: 8340/10000 (83%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls8e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls8e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls8e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9431, Accuracy: 35141/50000 (70%)
+Test set - Average loss: 0.4084, Accuracy: 9002/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls8e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls8e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls8e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9395, Accuracy: 35200/50000 (70%)
+Test set - Average loss: 0.4011, Accuracy: 8991/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls8e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls8e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls8e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9414, Accuracy: 35122/50000 (70%)
+Test set - Average loss: 0.3955, Accuracy: 8978/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls8e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls8e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls8e-06
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.2898, Accuracy: 30071/50000 (60%)
+Test set - Average loss: 0.6237, Accuracy: 8339/10000 (83%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls8e-06 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls8e-06
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls1.6e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9792, Accuracy: 35023/50000 (70%)
+Test set - Average loss: 0.4171, Accuracy: 8992/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls1.6e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls1.6e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls1.6e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9743, Accuracy: 35223/50000 (70%)
+Test set - Average loss: 0.4146, Accuracy: 8991/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls1.6e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls1.6e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls1.6e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9767, Accuracy: 35064/50000 (70%)
+Test set - Average loss: 0.4168, Accuracy: 8989/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls1.6e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls1.6e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls1.6e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.4308, Accuracy: 28979/50000 (58%)
+Test set - Average loss: 0.6944, Accuracy: 8244/10000 (82%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls1.6e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls1.6e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls1.6e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9773, Accuracy: 35182/50000 (70%)
+Test set - Average loss: 0.4180, Accuracy: 8998/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls1.6e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls1.6e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls1.6e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9808, Accuracy: 35050/50000 (70%)
+Test set - Average loss: 0.4219, Accuracy: 8967/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls1.6e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls1.6e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls1.6e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 0.9797, Accuracy: 35181/50000 (70%)
+Test set - Average loss: 0.4157, Accuracy: 8996/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls1.6e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls1.6e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls1.6e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.3818, Accuracy: 29287/50000 (59%)
+Test set - Average loss: 0.6677, Accuracy: 8269/10000 (83%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls1.6e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls1.6e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls8e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.2626, Accuracy: 35187/50000 (70%)
+Test set - Average loss: 0.5380, Accuracy: 8985/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls8e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls8e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls8e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.2656, Accuracy: 35191/50000 (70%)
+Test set - Average loss: 0.5327, Accuracy: 8978/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls8e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls8e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls8e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.2667, Accuracy: 35095/50000 (70%)
+Test set - Average loss: 0.5347, Accuracy: 8950/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls8e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls8e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls8e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.8448, Accuracy: 26067/50000 (52%)
+Test set - Average loss: 0.9416, Accuracy: 7800/10000 (78%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls8e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls8e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls8e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.2912, Accuracy: 35228/50000 (70%)
+Test set - Average loss: 0.5467, Accuracy: 8963/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls8e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls8e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls8e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.2987, Accuracy: 35177/50000 (70%)
+Test set - Average loss: 0.5451, Accuracy: 9023/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls8e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls8e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls8e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.2923, Accuracy: 35366/50000 (71%)
+Test set - Average loss: 0.5464, Accuracy: 8975/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls8e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls8e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls8e-05
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 1.8149, Accuracy: 27323/50000 (55%)
+Test set - Average loss: 0.8726, Accuracy: 8078/10000 (81%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls8e-05 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls8e-05
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls0.0008
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 4.5519, Accuracy: 35077/50000 (70%)
+Test set - Average loss: 1.8759, Accuracy: 8999/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls0.0008 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord0.5_ls0.0008
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls0.0008
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 4.5531, Accuracy: 35117/50000 (70%)
+Test set - Average loss: 1.8763, Accuracy: 8993/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls0.0008 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord1.0_ls0.0008
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls0.0008
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 4.5495, Accuracy: 35160/50000 (70%)
+Test set - Average loss: 1.8742, Accuracy: 8975/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls0.0008 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord2.0_ls0.0008
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls0.0008
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 5.2011, Accuracy: 24646/50000 (49%)
+Test set - Average loss: 2.3656, Accuracy: 7360/10000 (74%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls0.0008 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_sphere_ord5.0_ls0.0008
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls0.0008
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 4.8406, Accuracy: 35272/50000 (71%)
+Test set - Average loss: 1.9922, Accuracy: 8992/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls0.0008 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord0.5_ls0.0008
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls0.0008
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 4.8466, Accuracy: 34977/50000 (70%)
+Test set - Average loss: 1.9969, Accuracy: 8991/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls0.0008 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord1.0_ls0.0008
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls0.0008
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 4.8409, Accuracy: 35244/50000 (70%)
+Test set - Average loss: 2.0005, Accuracy: 8951/10000 (90%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls0.0008 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord2.0_ls0.0008
+Current model name: converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls0.0008
+MODEL
+Feedforward_FGN_net(
+  (hidden_layers): ModuleList(
+    (0): Dropout(p=0.4)
+    (1): FGN_layer()
+    (2): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (3): Dropout(p=0.4)
+    (4): FGN_layer()
+    (5): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (6): Dropout(p=0.4)
+    (7): FGN_layer()
+    (8): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (9): Dropout(p=0.4)
+  )
+  (ib): BatchNorm1d(784, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (fl): FGN_layer()
+)
+Using GPU: 0
+Training
+Epoch 0 Train set - Average loss: 5.4673, Accuracy: 24950/50000 (50%)
+Test set - Average loss: 2.4822, Accuracy: 7415/10000 (74%)
+Saving trained model converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls0.0008 in /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[16, 16, 16]_dp0.4_ite2/converted FGNs/converted_fgn_hl[16, 16, 16]_dp0.4_diag_ord5.0_ls0.0008
+Converting /home/felix/Research/Adversarial Research/FGN---Research/Experiments/Exp-00//2020_01_07_at_23:28:46/classic_hl[256, 256]_dp0.4_ite3/trained_classic_model_full.pth
+Current model name: converted_fgn_hl[256, 256]_dp0.4_sphere_ord0.5_ls8e-08
+Traceback (most recent call last):
+  File "Exp-00-Convert_Classic_to_FGN.py", line 134, in <module>
+    fgnl.convert_classic_to_fgn(classic_model, fgn_model)
+  File "/home/felix/Research/Adversarial Research/FGN---Research/Finite_Gaussian_Network_lib/convert_classic_to_fgn.py", line 15, in convert_classic_to_fgn
+    fgn_model.load_state_dict(new_state_dict)
+  File "/home/felix/.local/lib/python2.7/site-packages/torch/nn/modules/module.py", line 777, in load_state_dict
+    self.__class__.__name__, "\n\t".join(error_msgs)))
+RuntimeError: Error(s) in loading state_dict for Feedforward_FGN_net:
+	Unexpected key(s) in state_dict: "hidden_layers.7.weights", "hidden_layers.7.centers", "hidden_layers.7.biases", "hidden_layers.7.inv_covars", "hidden_layers.8.weight", "hidden_layers.8.bias", "hidden_layers.8.running_mean", "hidden_layers.8.running_var", "hidden_layers.8.num_batches_tracked". 

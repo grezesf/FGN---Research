@@ -1,7 +1,7 @@
 import torch
 from torchvision import datasets, transforms
 
-def mnist_dataloaders(batch_size=32, mnist_path='/home/felix/Research/Adversarial Research/MNIST-dataset'):
+def mnist_dataloaders(batch_size=32, batch_size_for_val=None, mnist_path='/home/felix/Research/Adversarial Research/MNIST-dataset'):
     # customized MNIST dataset and dataloaders declaration
     # transforms does both the conversion from 0-255 to 0-1
     # and normalizes by the mean and std
@@ -33,16 +33,19 @@ def mnist_dataloaders(batch_size=32, mnist_path='/home/felix/Research/Adversaria
 
     # recombine into dataloaders
     mnist_train_loader = torch.utils.data.DataLoader(torch.utils.data.TensorDataset(train_ds, train_dst),
-                                                     batch_size=batch_size, shuffle=True, )
+                                                     batch_size=batch_size, shuffle=True, num_workers=0, pin_memory=False)
+    # batch_size for val and test should be much larger
+    if batch_size_for_val==None:
+        batch_size_for_val = 100*batch_size
     mnist_val_loader = torch.utils.data.DataLoader(torch.utils.data.TensorDataset(valid_ds, valid_dst),
-                                                     batch_size=batch_size, shuffle=True)
+                                                     batch_size=batch_size_for_val, shuffle=True, num_workers=0, pin_memory=False)
 
     ## Don't use test set until paper
     mnist_test_loader = torch.utils.data.DataLoader(
         datasets.MNIST(mnist_path, train=False, download=False, 
                        transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize((train_mean,), (train_std,))])
                       ), 
-            batch_size=batch_size, shuffle=True)
+            batch_size=batch_size_for_val, shuffle=True)
     
     # values used for other things
     # minimum/maximum pixel value post normalization, from train dataset
