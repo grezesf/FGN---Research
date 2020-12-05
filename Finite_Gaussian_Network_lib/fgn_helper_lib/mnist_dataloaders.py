@@ -1,7 +1,7 @@
 import torch
 from torchvision import datasets, transforms
 
-def mnist_dataloaders(batch_size=32, batch_size_for_val=None, mnist_path='/home/felix/Research/Adversarial Research/MNIST-dataset'):
+def mnist_dataloaders(batch_size=32, batch_size_for_val=None, mnist_path='/home/data/mnist'):
     # customized MNIST dataset and dataloaders declaration
     # transforms does both the conversion from 0-255 to 0-1
     # and normalizes by the mean and std

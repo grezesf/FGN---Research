@@ -80,7 +80,7 @@ class Feedforward_FGN_net(nn.Module):
         # prev_g starts at None
         g = None
         # squash the data
-        x = x.view(-1, self.in_feats)
+        x = x.reshape(-1, self.in_feats)
         # input batchnorm
         x = self.ib(x)
         if (x != x).any():

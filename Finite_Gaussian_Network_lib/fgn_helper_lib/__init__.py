@@ -9,6 +9,7 @@ from .classical_cross_ent_loss import classical_cross_ent_loss
 from .def_classical_cross_ent_loss import def_classical_cross_ent_loss
 from .get_class_from_pred import get_class_from_pred
 from .mnist_dataloaders import mnist_dataloaders
+from .emnist_letters_dataloaders import emnist_letters_dataloaders
 from .mnist_random_dataloader import mnist_random_dataloader
 from .mnist_random_shuffled_dataloader import mnist_random_shuffled_dataloader
 from .get_dataloader_bounds import get_dataloader_bounds

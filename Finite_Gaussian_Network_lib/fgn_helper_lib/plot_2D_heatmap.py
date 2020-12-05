@@ -22,8 +22,10 @@ def plot_2D_heatmap(model, title="Set Title", scale=1.0, plot_mode='first', show
     heatmap_preds_softmax = np.nan_to_num(np.array([np.exp(x)/sum(np.exp(x)) for x in heatmap_preds]), nan=1.0)
 
     # get levels 
-    levels = np.arange(-0.0, 1.0+0.001, 10**(-2))
-    ticks = levels[::5]
+#     levels = np.arange(-0.0, 1.0+0.001, 10**(-2))
+#     ticks = levels[::5]
+    levels=20
+    ticks=np.arange(-1,1.1, 0.2)
     
     # number of classes in pred
     num_classes = len(heatmap_preds_softmax[0])
@@ -37,7 +39,7 @@ def plot_2D_heatmap(model, title="Set Title", scale=1.0, plot_mode='first', show
         # plot stacked
         for i in range(num_classes):
             plt.contourf(X1s, X2s, np.reshape(heatmap_preds_softmax[:,i], np.shape(X1s) ),levels=levels, cmap= mpl.cm.RdYlBu_r, alpha=1.0/num_classes)
-    
+
     elif plot_mode=='full':
         # print all the classes
         print_title=True
@@ -55,6 +57,7 @@ def plot_2D_heatmap(model, title="Set Title", scale=1.0, plot_mode='first', show
                 print_title=False
                 plt.title(title)
             plt.grid(True)
+            plt.gca().set_aspect("equal")
             plt.show()
         return 
         
@@ -67,5 +70,6 @@ def plot_2D_heatmap(model, title="Set Title", scale=1.0, plot_mode='first', show
 
     plt.title(title)
     plt.grid(True)
+    plt.gca().set_aspect("equal")
     plt.show()
     return

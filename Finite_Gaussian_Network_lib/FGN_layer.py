@@ -53,7 +53,7 @@ class FGN_layer(nn.Module):
         self.weights = nn.Parameter(torch.Tensor(out_features, in_features), requires_grad=True)
         self.biases = nn.Parameter(torch.Tensor(out_features,), requires_grad=True)
         
-        # is this the first layer (which doesnt have prev_g inputs
+        # is this the first layer (which doesnt have prev_g inputs)
         if first_layer:
             g_in_features = in_features
             g_out_features = out_features
@@ -96,11 +96,15 @@ class FGN_layer(nn.Module):
 #         self.biases.data.uniform_(-s, s)
         fan_in, _ = init._calculate_fan_in_and_fan_out(self.weights)
         bound = 1 / math.sqrt(fan_in)
-        init.uniform_(self.biases, -bound, bound)
+        # if biases are free, init them here
+        if self.free_biases: init.uniform_(self.biases, -bound, bound)
 
         # centers init, assuming data normalized to mean 0 (not necessarily true after first layer)
         init.normal_(self.centers, mean=0.0, std=0.1)
         
+        # if not free_biases, set bias based on centers
+        if not self.free_biases: self.update_biases_from_centers()
+            
 #         if not self.first_layer:
 #             # fist half centered around data inputs: mean 0
 #             # second half centered around prev_g inputs: mean 1

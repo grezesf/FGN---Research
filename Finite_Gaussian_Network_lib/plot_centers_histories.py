@@ -22,6 +22,5 @@ def plot_centers_histories(histories, num_rand_per_layer=2):
                     plt.title(k)
                     first_plot=False
                     
-                plt.grid()
-            
+                plt.grid()                
             plt.show()

@@ -50,7 +50,7 @@ class Feedforward_Classic_net(nn.Module):
         
     def forward(self, x):
         # squash the data
-        x = x.view(-1, self.in_feats)
+        x = x.reshape(-1, self.in_feats)
         # input batchnorm
         x = self.ib(x)
         # for each hidden layer

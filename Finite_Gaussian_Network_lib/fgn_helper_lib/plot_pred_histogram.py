@@ -32,6 +32,7 @@ def plot_pred_histogram(model, dataloader, title=None, verbose=False):
     plt.grid(True)
     if title is not None:
         plt.title(title)
+#     plt.gca().set_aspect("equal")
     plt.show()
     
     # extra: quick description of the maxes
