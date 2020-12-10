@@ -11,7 +11,7 @@
         # functional library to run FGNs
         |
         |---\fgn_helper_lib
-            # useful but unrelated functions
+            # useful functions not stricly related to FGNs
         |
         |---\tests
             # tests for the library functions
