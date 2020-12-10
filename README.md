@@ -1,6 +1,6 @@
 # Finite Gaussian Neurons for Adversarial Networks
 
-## Proposal by Felix Grezes
+## Ph.D. work by Felix Grezes
 
 ### Directory Organization
 
