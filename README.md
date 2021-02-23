@@ -1,6 +1,19 @@
-# Finite Gaussian Neurons for Adversarial Networks
+# Finite Gaussian Neurons for Adversarial Defense
 
 ## Ph.D. work by Felix Grezes
+
+### Cite as
+**Felix Grezes, Finite Gaussian Neurons for Adversarial Defense, 2021, https://github.com/grezesf/FGN---Research.**
+
+```
+@misc{grezes2021,
+ author={Felix Grezes},
+ year={2021},
+ title={Finite Gaussian Neurons for Adversarial Defense},
+ howpublished={\url{https://github.com/grezesf/FGN---Research}},
+}
+```
+
 
 ### Directory Organization
 
