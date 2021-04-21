@@ -4,7 +4,7 @@ import torch
 from .categorical_cmap import categorical_cmap
 from .get_rand_orthogonal_set import get_rand_orthogonal_set
 
-def plot_MNIST_hyperplanes(model, start, end, n_plots=5, grid_size=100, mode='canonical', title=None):
+def plot_MNIST_hyperplanes(model, start, end, rectangle_factor=1.0, n_plots=5, grid_size=100, mode='canonical', title=None):
     
     # given an MNIST model, a start and end point in the MNIST hyperspace (ie images)
     # plots a grid of heatmaps of the model along hyperplanes that contain (end-start) vector 
@@ -39,9 +39,9 @@ def plot_MNIST_hyperplanes(model, start, end, n_plots=5, grid_size=100, mode='ca
     gs = grid_size
     if grid_size%2==0: gs+=1
 
-    # define the XY grid
+    # define the XY grid rectangle (default=square)
     X = np.linspace(0, 1, gs)
-    Y = np.linspace(-0.5, 0.5, gs)
+    Y = np.linspace(-rectangle_factor*0.5, rectangle_factor*0.5, gs)
     Xs, Ys = np.meshgrid(X,Y)
     # cartestian product
     XYs = np.array(list(zip(Xs.ravel(), Ys.ravel())))

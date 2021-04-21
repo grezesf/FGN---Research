@@ -12,11 +12,12 @@ def mnist_random_dataloader(num_samples=1000, batch_size=1):
     # Random images dataset
     x_rand = np.random.randint(low=0, high=255+1, size=(num_samples,28,28) )
     # convert to [0,1] and apply same transforms as for MNIST training
-    x_rand = x_rand/255.0
+    x_rand = x_rand/255
+    x_rand = x_rand-train_mean
+    x_rand = x_rand/train_std
     
 
     x_rand = torch.Tensor(x_rand)
-    x_rand = transforms.Normalize(mean=(train_mean,), std=(train_std,))(x_rand)
     # note: because we normalize with the train set mean and std, this random data is NOT normalized to (0,1)
     # this is expected. minpix and maxpix should be the same though
     rand_dataset = torch.utils.data.TensorDataset(x_rand)# create your dataset

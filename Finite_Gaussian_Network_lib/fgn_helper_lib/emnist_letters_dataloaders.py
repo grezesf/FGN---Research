@@ -10,13 +10,9 @@ def emnist_letters_dataloaders(batch_size=32, batch_size_for_val=None, emnist_pa
     # returns train (), validation () and test () dataloaders
     # should be more or less balanced by classes
     
-    # values used for other things
-    # minimum/maximum pixel value post normalization, from train dataset
-    max_pix = 2.501450538635253906250000000000
-    min_pix = -0.520379960536956787109375000000
-    # mean and std of train set
-    train_mean = 0.172206863760948181152343750000
-    train_std = 0.330925256013870239257812500000
+    # values from mnist train data
+    train_mean = 0.130961298942565917968750000000
+    train_std = 0.308494895696640014648437500000
     
     original_emnist_train_loader = torch.utils.data.DataLoader(
         datasets.EMNIST(emnist_path,
@@ -40,9 +36,9 @@ def emnist_letters_dataloaders(batch_size=32, batch_size_for_val=None, emnist_pa
     
     # apply transforms
     # keep in mind you should only use the mean+std of data you've 'seen', the train data
-    train_ds=train_ds.float()/255.0
+    train_ds = train_ds.float()/255
     train_ds = transforms.Normalize(mean=(train_mean,), std=(train_std,))(train_ds)
-    valid_ds=valid_ds.float()/255.0
+    valid_ds = valid_ds.float()/255
     valid_ds = transforms.Normalize(mean=(train_mean,), std=(train_std,))(valid_ds)
     
     # recombine into dataloaders
@@ -75,7 +71,7 @@ def emnist_letters_dataloaders(batch_size=32, batch_size_for_val=None, emnist_pa
     # apply transforms
     test_ds = torch.transpose(original_emnist_test_loader.dataset.data,1,2)
     test_dst = original_emnist_test_loader.dataset.targets.data
-    test_ds = test_ds.float()/255.0
+    test_ds = test_ds.float()/255
     test_ds = transforms.Normalize(mean=(train_mean,), std=(train_std,))(test_ds)
     
     emnist_test_loader = torch.utils.data.DataLoader(

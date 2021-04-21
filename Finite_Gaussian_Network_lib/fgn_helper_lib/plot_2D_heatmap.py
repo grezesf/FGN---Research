@@ -22,9 +22,9 @@ def plot_2D_heatmap(model, title="Set Title", scale=1.0, plot_mode='first', show
     heatmap_preds_softmax = np.nan_to_num(np.array([np.exp(x)/sum(np.exp(x)) for x in heatmap_preds]), nan=1.0)
 
     # get levels 
-#     levels = np.arange(-0.0, 1.0+0.001, 10**(-2))
+    levels = np.arange(-0.0, 1.0+0.001, 10**(-2))
 #     ticks = levels[::5]
-    levels=20
+#     levels=20
     ticks=np.arange(-1,1.1, 0.2)
     
     # number of classes in pred
@@ -72,4 +72,4 @@ def plot_2D_heatmap(model, title="Set Title", scale=1.0, plot_mode='first', show
     plt.grid(True)
     plt.gca().set_aspect("equal")
     plt.show()
-    return
+    return heatmap_preds

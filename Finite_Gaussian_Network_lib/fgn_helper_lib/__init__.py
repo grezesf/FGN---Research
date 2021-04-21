@@ -22,3 +22,4 @@ from .categorical_cmap import categorical_cmap
 from .gen_rand_orthogonal import gen_rand_orthogonal
 from .get_rand_orthogonal_set import get_rand_orthogonal_set
 from .plot_MNIST_hyperplanes import plot_MNIST_hyperplanes
+from .SpeechCommands_Dataloaders import SpeechCommands_Dataloaders

@@ -20,19 +20,22 @@ def mnist_dataloaders(batch_size=32, batch_size_for_val=None, mnist_path='/home/
     # ToTensor() essentially divides by 255 in this case
     
     # split into train/validation
-    train_ds =  original_mnist_train_loader.dataset.data[:50000, :, :]
-    valid_ds =  original_mnist_train_loader.dataset.data[50000:, :, :]
+    train_ds = original_mnist_train_loader.dataset.data[:50000, :, :]
+    valid_ds = original_mnist_train_loader.dataset.data[50000:, :, :]
 
-    train_dst =  original_mnist_train_loader.dataset.targets.data[:50000]
-    valid_dst =  original_mnist_train_loader.dataset.targets.data[50000:]
+    train_dst = original_mnist_train_loader.dataset.targets.data[:50000]
+    valid_dst = original_mnist_train_loader.dataset.targets.data[50000:]
 
     # apply transforms
     # keep in mind you should only use the mean+std of data you've 'seen', the train data
-    train_ds = train_ds.float()/255.0
-    train_mean = train_ds.mean()
-    train_std = train_ds.std()
+    train_ds = train_ds.float()/255
+    # dont recompute every time
+#     train_mean = train_ds.mean()
+#     train_std = train_ds.std()
+    train_mean = 0.130961298942565917968750000000
+    train_std = 0.308494895696640014648437500000
     train_ds = transforms.Normalize(mean=(train_mean,), std=(train_std,))(train_ds)
-    valid_ds = valid_ds.float()/255.0
+    valid_ds = valid_ds.float()/255
     valid_ds = transforms.Normalize(mean=(train_mean,), std=(train_std,))(valid_ds)
 
     # recombine into dataloaders
@@ -62,5 +65,6 @@ def mnist_dataloaders(batch_size=32, batch_size_for_val=None, mnist_path='/home/
 #     # mean and std of train set post normalization
 #     train_mean = -0.0000061691193877777550369501113891601562500000000
 #     train_std = 0.999999344348907470703125000000
+#     smallest_pixel_change = 0.012662284058797622365855062298578559421002864837646484375000000
     
     return(mnist_train_loader, mnist_val_loader, mnist_test_loader)
