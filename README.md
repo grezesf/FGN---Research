@@ -14,6 +14,15 @@
 }
 ```
 
+### Dependencies 
+```
+PyTorch
+Torchvisionn
+Numpy
+Scipy
+Matplotlib
+```
+
 ### Directory Organization
 
 ```
@@ -49,7 +58,7 @@ A collection of functions related to Finite Gaussian Networks.
 
 #### [Notebooks](./Notebooks)
 A collection of Jupyter Notebooks used for data visualization, results plotting, experiments analysis, etc...
-Loosely follows the narrative of the proposal.
+Loosely follows the narrative of the thesis.
 
 #### [Experiments](./Experiments)
 A collection of tiny scripts that run experiments, and folders containing the results.
