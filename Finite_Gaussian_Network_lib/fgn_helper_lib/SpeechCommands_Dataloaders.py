@@ -1,4 +1,5 @@
 from torchaudio.datasets import SPEECHCOMMANDS
+from torchaudio import transforms
 import torch
 import os
     
@@ -42,17 +43,19 @@ def pad_sequence(batch):
     batch = torch.nn.utils.rnn.pad_sequence(batch, batch_first=True, padding_value=0.)
     return batch.permute(0, 2, 1)
 
-
-def collate_fn(batch):
+def collate_fn(batch, resample_rate):
 
     # A data tuple has the form:
     # waveform, sample_rate, label, speaker_id, utterance_number
 
     tensors, targets = [], []
+    
+    # resampling func
+    transform = transforms.Resample(orig_freq=16000, new_freq=resample_rate)
 
     # Gather in lists, and encode labels as indices
     for waveform, _, label, *_ in batch:
-        tensors += [waveform]
+        tensors += [transform(waveform)]
         targets += [label_to_index(label)]
 
     # Group the list of tensors into a batched tensor
@@ -61,34 +64,38 @@ def collate_fn(batch):
 
     return tensors, targets
 
-def SpeechCommands_Dataloaders(batch_size=32, bathsize_for_val=10000, **kwargs):
+
+def SpeechCommands_Dataloaders(resample_rate=8000, batch_size=32, batchsize_for_val=10000, **kwargs):
+    
+
     # Create training and testing split of the data.
     train_set = SubsetSC('training')
-    val_set = SubsetSC('validation')
-    test_set = SubsetSC('testing')
-
     train_loader = torch.utils.data.DataLoader(
         train_set,
         batch_size=batch_size,
         shuffle=True,
-        collate_fn=collate_fn,
+        collate_fn=(lambda batch: collate_fn(batch, resample_rate)),
         num_workers=kwargs['num_workers'],
         pin_memory=kwargs['pin_memory'],
     )
+    
+    val_set = SubsetSC('validation')
     val_loader = torch.utils.data.DataLoader(
         val_set,
-        batch_size=bathsize_for_val,
+        batch_size=batchsize_for_val,
         shuffle=False,
-        collate_fn=collate_fn,
+        collate_fn=(lambda batch: collate_fn(batch, resample_rate)),
         num_workers=kwargs['num_workers'],
         pin_memory=kwargs['pin_memory'],
     )
+    
+    test_set = SubsetSC('testing')
     test_loader = torch.utils.data.DataLoader(
         test_set,
-        batch_size=bathsize_for_val,
+        batch_size=batchsize_for_val,
         shuffle=False,
         drop_last=False,
-        collate_fn=collate_fn,
+        collate_fn=(lambda batch: collate_fn(batch, resample_rate)),
         num_workers=kwargs['num_workers'],
         pin_memory=kwargs['pin_memory'],
     )

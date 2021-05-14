@@ -18,6 +18,7 @@ from .full_FGSM_attack import full_FGSM_attack
 from .plot_centers_histories import plot_centers_histories
 from .plot_sigmas_histories import plot_sigmas_histories
 from .get_fgsm_attack_vectors import get_fgsm_attack_vectors
+from .FGN_Conv1d import FGN_Conv1d
 __version__ = '0.01'
 
 

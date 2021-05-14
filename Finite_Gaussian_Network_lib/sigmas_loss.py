@@ -1,15 +1,17 @@
 import torch
 import numpy as np
 
-def sigmas_loss(model):
+def sigmas_loss(model, covar_type=None):
     # average of sigma^2 in the model, used for regularization
-    # actually relies on the inv_covar value
+    # actually relies on the inv_covar value AND NAME IN THE NAMED_PARAMETERS!
     
     # init on right device (not tested shared GPU models)
     count = 0
     sig_loss = torch.tensor([0.0], device=next(model.parameters()).device)
     
-    covar_type = model.covar_type
+    if covar_type is None:
+        # try to guess the model type
+        covar_type = model.covar_type
     
     for p in model.named_parameters():
 #         # old code when using sigmas and not inverse
