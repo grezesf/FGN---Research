@@ -23,7 +23,7 @@ class FGN_layer(nn.Module):
     """
     
     def __init__(self, in_features, out_features, 
-                 covar_type='diag', ordinal=2.0, non_lin=False, free_biases=True, first_layer=False,
+                 covar_type='diag', ordinal=2.0, non_lin=False, free_biases=True,
                  **kwargs):
         super(FGN_layer, self).__init__()
         # input dimension
@@ -41,8 +41,6 @@ class FGN_layer(nn.Module):
         # should centers of gaussian define the linear layer biases?
         # ie should the zero-line of the linear part go through the center?
         self.free_biases = free_biases
-        # is this the first layer of the network? (ie: does it have only inputs or also gaussian input from previous layer?)
-        self.first_layer = first_layer
        
         # random_eval is False at creation. Can be manually changed later
         self.random_eval = False
