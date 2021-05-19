@@ -36,7 +36,7 @@ class FGN_Conv1d(nn.Module):
         # (1=diamond, 2=euclidean, 3->float('inf')=approach manhattan)
         self.ordinal = ordinal
         # centers of FGNs  
-        self.centers = nn.Parameter(torch.Tensor(out_channels, kernel_size), requires_grad=True)
+        self.centers = nn.Parameter(torch.Tensor(in_channels, out_channels, kernel_size), requires_grad=True)
         # size/range of FGNs
         # inverse covariance will actually be used
         if covar_type == 'sphere':
@@ -99,7 +99,7 @@ class FGN_Conv1d(nn.Module):
                                           self.dilation))
         
         # distance to centers
-        dists = strided_inputs.view(batch_size, self.in_channels, 1, num_outputs, self.kernel_size) - self.centers.view(1, 1, self.out_channels, 1, self.kernel_size)
+        dists = strided_inputs.view(batch_size, self.in_channels, 1, num_outputs, self.kernel_size) - self.centers.view(1, self.in_channels, self.out_channels, 1, self.kernel_size)
             
         # computation of gaussian component
         if self.covar_type=='sphere':
@@ -160,7 +160,7 @@ class FGN_Conv1d(nn.Module):
             max_prev_g_strided,_ = torch.max(max_prev_g_strided, dim=1)
             
             # compare with current g
-            g = torch.maximum(g, max_prev_g_strided.unsqueeze(1))
+            g = torch.max(g, max_prev_g_strided.unsqueeze(1))
             
         # combine conv with gaussian
         res = c*g
