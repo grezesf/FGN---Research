@@ -3,9 +3,13 @@ from torchaudio import transforms
 import torch
 import os
     
-    
+### pre-computed stats and values
+# the labels in the data
 labels = ['backward', 'bed', 'bird', 'cat', 'dog', 'down', 'eight', 'five', 'follow', 'forward', 'four', 'go', 'happy', 'house', 'learn', 'left', 'marvin', 'nine',
  'no', 'off', 'on', 'one', 'right', 'seven', 'sheila', 'six', 'stop', 'three', 'tree', 'two', 'up', 'visual', 'wow', 'yes', 'zero']
+# the min and max input values
+min_bound = -1.3844940662384033
+max_bound = 1.3773366212844849
 
 class SubsetSC(SPEECHCOMMANDS):
     def __init__(self, subset: str = None):
@@ -67,7 +71,6 @@ def collate_fn(batch, resample_rate):
 
 def SpeechCommands_Dataloaders(resample_rate=8000, batch_size=32, batchsize_for_val=10000, **kwargs):
     
-
     # Create training and testing split of the data.
     train_set = SubsetSC('training')
     train_loader = torch.utils.data.DataLoader(

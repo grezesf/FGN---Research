@@ -20,6 +20,7 @@ from .plot_sigmas_histories import plot_sigmas_histories
 from .get_fgsm_attack_vectors import get_fgsm_attack_vectors
 from .FGN_Conv1d import FGN_Conv1d
 from .convert_layer_conv1D_to_fgn import convert_layer_conv1D_to_fgn
+from .perform_attack import perform_attack
 __version__ = '0.01'
 
 
