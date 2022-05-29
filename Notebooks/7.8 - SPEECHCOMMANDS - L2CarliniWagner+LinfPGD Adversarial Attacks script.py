@@ -8,7 +8,7 @@ import torch.nn.functional as F
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # manually set cuda device
-# torch.cuda.set_device(1)
+torch.cuda.set_device(1)
 # device = 'cpu'
 print(device)
 
@@ -189,26 +189,28 @@ fgn_f_model_converted_long_retraining = foolbox.PyTorchModel(fgn_model_converted
                                        preprocessing=preprocessing, device=device)
 
 # attack params to explore
-epsilons = torch.tensor([(max_bound-min_bound)*x 
+epsilons = torch.tensor([(max_bound-min_bound)*x*(1./256.) 
             for x in 
-            [0.0,
-             1/256,
-             3/512,
-             1/128,
-             3/256,
-             1/64,
-             3/128,
-             1/32,
-             3/64,
-             1/16,
-             3/32,
-             1/8,
-             3/16,
-             1/4,
-             3/8,
-             1/2,
-             3/4,
-             1.0,] ], device=device)
+            [1./512,
+             3./1024,
+             1./256,
+             3./512,
+             1./128,
+             3./256,
+             1./64,
+             3./128,
+             1./32,
+             3./64,
+             1./16,
+             3./32,
+             1./8,
+             3./16,
+             1./4,
+             3./8,
+             1./2,
+             3./4,
+             
+            ] ], device=device)
 
 print('epsilons: {}'.format(epsilons))
 
@@ -263,9 +265,10 @@ timestamp = time()
 # save_folder = '/home/felix/Research/Adversarial Research/FGN---Research/Experiments/adversarial_attacks_results/{}/'.format(timestamp)
 # print('creating save folder: {}'.format(save_folder)) 
 # os.makedirs(save_folder)
-save_folder = '/home/felix/Research/Adversarial Research/FGN---Research/Experiments/adversarial_attacks_results/1637624970.2306073/'
-start = 48
-stop = None
+save_folder = '/scratch/felix/FGN---Results/cw_pgd_results_small_epsilon/'
+# save_folder = '/scratch/felix/FGN---Results/1637624970.2306073/'
+start = 32
+stop = 48
 
 for attack_name, attack in attacks_to_perform.items():
     print('Performing attack:', attack_name)
