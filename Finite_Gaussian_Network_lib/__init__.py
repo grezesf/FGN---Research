@@ -12,9 +12,9 @@ from .sigmas_loss import sigmas_loss
 from .fgn_cross_ent_loss import fgn_cross_ent_loss
 from .def_fgn_cross_ent_loss import def_fgn_cross_ent_loss
 from .adjust_sigma_pred_func import adjust_sigma_pred_func
-from .FGSM_attack_untargeted import FGSM_attack_untargeted
-from .FGSM_attack_targeted import FGSM_attack_targeted
-from .full_FGSM_attack import full_FGSM_attack
+# from .FGSM_attack_untargeted import FGSM_attack_untargeted # deprecated
+# from .FGSM_attack_targeted import FGSM_attack_targeted
+# from .full_FGSM_attack import full_FGSM_attack
 from .plot_centers_histories import plot_centers_histories
 from .plot_sigmas_histories import plot_sigmas_histories
 from .get_fgsm_attack_vectors import get_fgsm_attack_vectors

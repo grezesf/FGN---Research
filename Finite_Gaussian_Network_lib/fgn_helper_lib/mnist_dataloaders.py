@@ -13,7 +13,7 @@ def mnist_dataloaders(batch_size=32, batch_size_for_val=None, mnist_path='/home/
         datasets.MNIST(mnist_path, train=True, download=False, 
                        transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.1307,), (0.3081,))
                 ])), 
-            batch_size=batch_size, shuffle=True)
+            batch_size=batch_size, shuffle=False)
     # notes: as is the data is PIL images, and transforms is only applied when batches are called.
     # so original_mnist_train_loader.dataset.data[0] (raw data) is a PIL image (dtype=torch.uint8)
     # but next(iter(original_mnist_train_loader))[0] (after transforms) is a tensor (dtype=torch.float32)
@@ -40,20 +40,20 @@ def mnist_dataloaders(batch_size=32, batch_size_for_val=None, mnist_path='/home/
 
     # recombine into dataloaders
     mnist_train_loader = torch.utils.data.DataLoader(torch.utils.data.TensorDataset(train_ds, train_dst),
-                                                     batch_size=batch_size, shuffle=True, num_workers=0, pin_memory=False)
+                                                     batch_size=batch_size, shuffle=False, num_workers=0, pin_memory=False)
     
     # batch_size for val and test should be much larger
     if batch_size_for_val==None:
         batch_size_for_val = 100*batch_size
     mnist_val_loader = torch.utils.data.DataLoader(torch.utils.data.TensorDataset(valid_ds, valid_dst),
-                                                     batch_size=batch_size_for_val, shuffle=True, num_workers=0, pin_memory=False)
+                                                     batch_size=batch_size_for_val, shuffle=False, num_workers=0, pin_memory=False)
 
     ## Don't use test set until paper
     mnist_test_loader = torch.utils.data.DataLoader(
         datasets.MNIST(mnist_path, train=False, download=False, 
                        transform=transforms.Compose([transforms.ToTensor(), transforms.Normalize((train_mean,), (train_std,))])
                       ), 
-            batch_size=batch_size_for_val, shuffle=True)
+            batch_size=batch_size_for_val, shuffle=False)
     
 #     # values used for other things
 #     pre-normalization means and std
